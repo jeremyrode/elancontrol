@@ -1,2 +1,6 @@
 # elancontrol
-Code to control IR Channel of an Elan S6 Audio System from RaspberyPi
+Code to control an Elan System6 Integrated Multi-Zone Controller from RaspberryPi
+
+Goal is to have a Raspberry inject IR commands from a bit banged GPIO.
+![alt text](docs/zpad_pinout.png "Description goes here")
+IR Channel of 
