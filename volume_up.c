@@ -1,17 +1,10 @@
-//
-//  How to access GPIO registers from C-code on the Raspberry-Pi
-//  Example program
-//  15-January-2012
+//  Bit-bang the Elan S6 Volume Up Seuquence on GPI10
+//  Uses: How to access GPIO registers from C-code on the Raspberry-Pi
 //  Dom and Gert
-//  Revised: 15-Feb-2013
- 
- 
-// Access from ARM Running Linux
- 
+
 #define BCM2708_PERI_BASE        0x3F000000
 #define GPIO_BASE                (BCM2708_PERI_BASE + 0x200000) /* GPIO controller */
- 
- 
+  
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -80,7 +73,6 @@ int main(int argc, char **argv)
   return 0;
  
 } // main
- 
  
 //
 // Set up a memory regions to access GPIO
