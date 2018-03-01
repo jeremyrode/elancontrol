@@ -14,10 +14,17 @@ for x=1:length(lines)
     fprintf('| %s | ',lines(x).DisplayName)
     for y=6:length(code)
         if code(y) > 6000
-            fprintf('L ')
+            fprintf('L')
         else
-            fprintf('S ')
+            fprintf('S')
         end
     end
-    disp(' |')
+    
+    binstring = '000000';
+    for y=6:length(code)
+        if code(y) > 6000
+            binstring(y-5) = '1';
+        end
+    end
+    disp([' | ' binstring ' | ' num2str(bin2dec(binstring)) ' |'])
 end

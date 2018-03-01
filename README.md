@@ -24,16 +24,16 @@ The first 6 pulses seem to be a preamble, always spaced short, then the next 6 w
 
 Decoding of the Key Commands (Preamble Omitted):
 
-| Command        | Code           |
-| :-------------: |:-------------:|
-| Off | S S S S S S  |
-| Mute | S S S S L S  |
-| VolUp | S S S L S S  |
-| VolDown | L S S L S S  |
-| 2ndRowRight | L S L S S S  |
-| 2ndRowCenter | S S L L S S  |
-| 2ndRowLeft | S S L S L L  |
-| UpperRight | S S L S L S  |
-| UpperCenter | S S L S S L  |
-| UpperLeft | S S L S S S  |
+| Command  | Code | Bin | Dec |
+| :------: |:----:|:---:|:---:|
+| Off | SSSSSS | 000000 | 0 |
+| Mute | SSSSLS | 000010 | 2 |
+| VolUp | SSSLSS | 000100 | 4 |
+| VolDown | LSSLSS | 100100 | 36 |
+| 2ndRowRight | LSLSSS | 101000 | 40 |
+| 2ndRowCenter | SSLLSS | 001100 | 12 |
+| 2ndRowLeft | SSLSLL | 001011 | 11 |
+| UpperRight | SSLSLS | 001010 | 10 |
+| UpperCenter | SSLSSL | 001001 | 9 |
+| UpperLeft | SSLSSS | 001000 | 8 |
 

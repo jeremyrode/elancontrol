@@ -15,6 +15,8 @@
 #define PULSE_WIDTH_DELAY 906
 #define NARROW (const struct timespec[]){{0,5069000L}}, NULL
 #define WIDE (const struct timespec[]){{0,7064000L}}, NULL
+// Which Pin
+#define GPIO_PIN 1<<10
 
 // GPIO setup macros. Always use INP_GPIO(x) before using OUT_GPIO(x) or SET_GPIO_ALT(x,y)
 #define INP_GPIO(g) *(gpio+((g)/10)) &= ~(7<<(((g)%10)*3))
@@ -33,61 +35,56 @@ void setup_io();
 
 int main(int argc, char *argv[])
 {
-    int g,rep;
+    int g,rep,code;
     
+    if (argc > 2)
+        return -1;
+    code = atoi(argv[1]);
     // Set up gpi pointer for direct register access
     setup_io()
-    
     // Set GPIO pins 7-11 to output
     for (g=7; g<=11; g++)
     {
         INP_GPIO(g); // must use INP_GPIO before we can use OUT_GPIO
         OUT_GPIO(g);
     }
-    
-    for (rep=0; rep<6; rep++) //Send the 6 narrows for the preamble
+    for (rep=0; rep<6; rep++) //Send the preamble (all shorts)
     {
-        GPIO_SET = 1<<10;
+        GPIO_SET = GPIO_PIN;
         g=0;
         while (g<PULSE_WIDTH_DELAY)
             g++;
-        GPIO_CLR = 1<<10;
+        GPIO_CLR = GPIO_PIN;
         nanosleep(NARROW);
     }
-    for (rep=0; rep<6; rep++)
+    for (rep=0; rep<6; rep++) //Send the code
     {
-        GPIO_SET = 1<<10;
+        GPIO_SET = GPIO_PIN;
         g=0;
         while (g<PULSE_WIDTH_DELAY)
             g++;
-        GPIO_CLR = 1<<10;
-        if (rep == 8)
-            nanosleep(NARROW);
-        else
+        GPIO_CLR = GPIO_PIN;
+        if (code & 1<<rep)
             nanosleep(WIDE);
+        else
+            nanosleep(NARROW);
     }
-    
     return 0;
 }
-
 //
 // Set up a memory regions to access GPIO
 //
 void setup_io()
 {
-    
     int  mem_fd;
     void *gpio_map;
-    
 // I/O access
     volatile unsigned *gpio;
-    
     /* open /dev/mem */
     if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
         printf("can't open /dev/mem \n");
         exit(-1);
     }
-    
     /* mmap GPIO */
     gpio_map = mmap(
             NULL,             //Any adddress in our space will do
@@ -97,16 +94,11 @@ void setup_io()
             mem_fd,           //File to map
             GPIO_BASE         //Offset to GPIO peripheral
             );
-    
     close(mem_fd); //No need to keep mem_fd open after mmap
-    
     if (gpio_map == MAP_FAILED) {
         printf("mmap error %d\n", (int)gpio_map);//errno also set!
         exit(-1);
     }
-    
     // Always use volatile pointer!
     gpio = (volatile unsigned *)gpio_map;
-    
-    
 } // setup_io
