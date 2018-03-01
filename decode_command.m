@@ -14,9 +14,9 @@ for x=1:length(lines)
     fprintf('| %s | ',lines(x).DisplayName)
     for y=6:length(code)
         if code(y) > 6000
-            fprintf('S ')
-        else
             fprintf('L ')
+        else
+            fprintf('S ')
         end
     end
     disp(' |')

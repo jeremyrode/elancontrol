@@ -26,14 +26,14 @@ Decoding of the Key Commands (Preamble Omitted):
 
 | Command        | Code           |
 | :-------------: |:-------------:|
-| Off | L L L L L L  |
-| Mute | L L L L S L  |
-| VolUp | L L L S L L  |
-| VolDown | S L L S L L  |
-| 2ndRowRight | S L S L L L  |
-| 2ndRowCenter | L L S S L L  |
-| 2ndRowLeft | L L S L S S  |
-| UpperRight | L L S L S L  |
-| UpperCenter | L L S L L S  |
-| UpperLeft | L L S L L L  |
+| Off | S S S S S S  |
+| Mute | S S S S L S  |
+| VolUp | S S S L S S  |
+| VolDown | L S S L S S  |
+| 2ndRowRight | L S L S S S  |
+| 2ndRowCenter | S S L L S S  |
+| 2ndRowLeft | S S L S L L  |
+| UpperRight | S S L S L S  |
+| UpperCenter | S S L S S L  |
+| UpperLeft | S S L S S S  |
 
