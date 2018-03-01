@@ -36,13 +36,18 @@ volatile unsigned *gpio;
  
 void setup_io();
  
-send_command(int code)
+int main(int argc, char **argv)
 {
-  int g,rep;
+  int g,rep,code;
  
-
+  if (argc<2)
+  {
+	  printf("Need an integer command");
+	  return -1;
+  }
+  code = atoi(argv[1]);
   // Set up gpi pointer for direct register access
-  //setup_io();
+  setup_io();
  
   // Set GPIO pins 7-11 to output
   for (g=7; g<=11; g++)
