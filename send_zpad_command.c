@@ -5,12 +5,13 @@
 #define BCM2708_PERI_BASE        0x3F000000
 #define GPIO_BASE                (BCM2708_PERI_BASE + 0x200000) /* GPIO controller */
   
-#include <stdio.h>
+//#include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <unistd.h>
 #include <time.h>
+#include "send_zpad_command.h"
  
 #define PAGE_SIZE (4*1024)
 #define BLOCK_SIZE (4*1024)
@@ -33,10 +34,10 @@ volatile unsigned *gpio;
  
 #define GPIO_PULL *(gpio+37) // Pull up/pull down
 #define GPIO_PULLCLK0 *(gpio+38) // Pull up/pull down clock
+
+
  
-void setup_io();
- 
-send_command(int code)
+int send_command(int code)
 {
   int g,rep;
  
@@ -100,7 +101,7 @@ void setup_io()
 {
    /* open /dev/mem */
    if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
-      printf("can't open /dev/mem \n");
+      //printf("can't open /dev/mem \n");
       exit(-1);
    }
  
@@ -117,7 +118,7 @@ void setup_io()
    close(mem_fd); //No need to keep mem_fd open after mmap
  
    if (gpio_map == MAP_FAILED) {
-      printf("mmap error %d\n", (int)gpio_map);//errno also set!
+      //printf("mmap error %d\n", (int)gpio_map);//errno also set!
       exit(-1);
    }
  
