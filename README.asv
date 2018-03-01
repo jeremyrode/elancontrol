@@ -23,6 +23,7 @@ The first 6 pulses seem to be a preamble, always spaced short, then the next 6 w
 
 
 Decoding of the Key Commands (Preamble Omitted)
+
 | Command        | Code           |
 | :-------------: |:-------------:|
 | Off | L L L L L L  |
