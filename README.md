@@ -22,7 +22,8 @@ The first 6 pulses seem to be a preamble, always spaced short, then the next 6 w
 
 ![alt text](docs/ElanZpadCodes.png "Elan S6 Command Scope Capture")
 
-Decoding of the Key Commands (Preamble Omitted)
+Decoding of the Key Commands (Preamble Omitted):
+
 | Command        | Code           |
 | :-------------: |:-------------:|
 | Off | L L L L L L  |
