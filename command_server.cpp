@@ -20,13 +20,16 @@ int main(int argc, char* argv[])
 	  boost::asio::ip::address::from_string(argv[1]), 6969);
     std::cout << "Local bind " << local_endpoint << std::endl;
  
-    udp::socket socket(io_service, local_endpoint);
-
+    udp::socket socket(io_service, local_endpoint); 
+    while (1)
+    {
     boost::array<char, 128> recv_buf;
-    
     udp::endpoint sender_endpoint;
+    //std::cout << "About to RX" << std::endl;
     size_t len = socket.receive_from(boost::asio::buffer(recv_buf), sender_endpoint);
     std::cout.write(recv_buf.data(), len);
+    std::cout << std::endl;
+    }
   }
   catch (std::exception& e)
   {
