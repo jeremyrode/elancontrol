@@ -38,44 +38,39 @@ void setup_io();
  
 int main(int argc, char **argv)
 {
-  int g,rep,code;
+  int g,rep,code,chan;
  
-  if (argc<2)
+  if (argc<3)
   {
-	  printf("Need an integer command");
+	  printf("Need two integer commands");
 	  return -1;
   }
   code = atoi(argv[1]);
+  chan = atoi(argv[2]);
   // Set up gpi pointer for direct register access
   setup_io();
  
-  // Set GPIO pins 7-11 to output
-  for (g=7; g<=11; g++)
-  {
-    INP_GPIO(g); // must use INP_GPIO before we can use OUT_GPIO
-    OUT_GPIO(g);
-  }
 
   for (rep=0; rep<5; rep++)
   {
-    GPIO_SET = 1<<10;
+    GPIO_SET = 1<<chan;
     g=0;
     while (g<906)
     {
       g++;
     }
-    GPIO_CLR = 1<<10;
+    GPIO_CLR = 1<<chan;
     nanosleep((const struct timespec[]){{0,5000000L}}, NULL);
   }
  for (rep=0; rep<6; rep++)
   {
-    GPIO_SET = 1<<10;
+    GPIO_SET = 1<<chan;
     g=0;
     while (g<906)
     {
       g++;
     }
-    GPIO_CLR = 1<<10;
+    GPIO_CLR = 1<<chan;
     if (code & 1<<5-rep)
     {
       nanosleep((const struct timespec[]){{0,7000000L}}, NULL);
@@ -86,13 +81,13 @@ int main(int argc, char **argv)
     }
   }
 
-  GPIO_SET = 1<<10;
+  GPIO_SET = 1<<chan;
   g=0;
   while (g<906)
   {
     g++;
   }
-  GPIO_CLR = 1<<10;
+  GPIO_CLR = 1<<chan;
 
   return 0;
  
@@ -103,6 +98,7 @@ int main(int argc, char **argv)
 //
 void setup_io()
 {
+	int g;
    /* open /dev/mem */
    if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
       printf("can't open /dev/mem \n");
@@ -124,6 +120,13 @@ void setup_io()
    if (gpio_map == MAP_FAILED) {
       printf("mmap error %d\n", (int)gpio_map);//errno also set!
       exit(-1);
+
+  // Set GPIO pins 7-11 to output
+  for (g=5; g<=13; g++)
+  {
+    INP_GPIO(g); // must use INP_GPIO before we can use OUT_GPIO
+    OUT_GPIO(g);
+  }
    }
  
    // Always use volatile pointer!
