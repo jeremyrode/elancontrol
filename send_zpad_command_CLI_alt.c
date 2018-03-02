@@ -25,7 +25,7 @@ volatile unsigned *gpio;
 #define INP_GPIO(g) *(gpio+((g)/10)) &= ~(7<<(((g)%10)*3))
 #define OUT_GPIO(g) *(gpio+((g)/10)) |=  (1<<(((g)%10)*3))
 
-
+#define GPFSEL ((volatile unsigned int *) (gpio + 0))
 #define GPIO_SET *(gpio+7)  // sets   bits which are 1 ignores bits which are 0
 #define GPIO_CLR *(gpio+10) // clears bits which are 1 ignores bits which are 0
 
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
     // Set up gpi pointer for direct register access
     pioInit();
     
-    for (g=5; g<=13; g++)
+    for (g=0; g<=25; g++)
     {
         pinMode(7,g); // must use INP_GPIO before we can use OUT_GPIO
         pinMode(1,g);
