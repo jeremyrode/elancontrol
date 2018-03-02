@@ -1,5 +1,3 @@
-//
-//
 
 #include <iostream>
 #include <string>
@@ -13,8 +11,7 @@ int main()
   try
   {
     boost::asio::io_service io_service;
-
-    udp::socket socket(io_service, udp::endpoint(udp::v4(), 13));
+    udp::socket socket(io_service, udp::endpoint(udp::v4(), 6969));
 
     for (;;)
     {
@@ -23,6 +20,7 @@ int main()
       boost::system::error_code error;
       socket.receive_from(boost::asio::buffer(recv_buf),
           remote_endpoint, 0, error);
+      std::cout.write(&recv_buf[0],recv_buf.size());
 
       if (error && error != boost::asio::error::message_size)
         throw boost::system::system_error(error);

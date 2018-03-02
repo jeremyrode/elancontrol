@@ -5,7 +5,7 @@
 #define BCM2708_PERI_BASE        0x3F000000
 #define GPIO_BASE                (BCM2708_PERI_BASE + 0x200000) /* GPIO controller */
   
-//#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <sys/mman.h>
@@ -101,7 +101,7 @@ void setup_io()
 {
    /* open /dev/mem */
    if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
-      //printf("can't open /dev/mem \n");
+      printf("can't open /dev/mem \n");
       exit(-1);
    }
  
@@ -118,7 +118,7 @@ void setup_io()
    close(mem_fd); //No need to keep mem_fd open after mmap
  
    if (gpio_map == MAP_FAILED) {
-      //printf("mmap error %d\n", (int)gpio_map);//errno also set!
+      printf("mmap error %d\n", (int)gpio_map);//errno also set!
       exit(-1);
    }
  
