@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
 #include <boost/lexical_cast.hpp>
@@ -16,6 +17,8 @@ int main(int argc, char* argv[])
             return 1;
         }
         boost::asio::io_service io_service;
+
+	setup_io();
         
         udp::endpoint local_endpoint = boost::asio::ip::udp::endpoint(
                 boost::asio::ip::address::from_string(argv[1]), 6969);
@@ -30,8 +33,8 @@ int main(int argc, char* argv[])
             size_t len = socket.receive_from(boost::asio::buffer(recv_buf), sender_endpoint);
             for (int x=0; x<len; x++)
             {
-                std::cout.write(recv_buf[x].data(), 1);
-                std::cout << std::endl;
+                std::cout << "Sending: " << std::to_string(recv_buf[x]) << std::endl;
+		send_command(recv_buf[x]);
             }
         }
     }

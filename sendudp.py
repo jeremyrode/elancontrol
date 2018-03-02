@@ -3,7 +3,7 @@ import socket
 
 UDP_IP = "127.0.0.1"
 UDP_PORT = 6969
-MESSAGE = "Test"
+MESSAGE = chr(0)
 
 print "UDP target IP:", UDP_IP
 print "UDP target port:", UDP_PORT
