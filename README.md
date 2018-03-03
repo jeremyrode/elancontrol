@@ -43,3 +43,8 @@ Decoding of the Key Commands (Preamble Omitted):
 | UpperCenter | SSLSSL | 001001 | 9 |
 | UpperLeft | SSLSSS | 001000 | 8 |
 
+## Level Shifter
+
+![alt text](docs/level_shifter.png "Level Shifter Schematic")
+
+Circuit takes the 3.3V GPIO from the Pi, and performes a open-collector pull-up.  The S6 seems to have an internal 1k pull-down to ground.  Looking at the Zpads, they have an open-collector pull-up with a ~100 ohm resistor to current limit.  Added a dual diode for over-voltage protection (The Zpads have diode protection as well).
