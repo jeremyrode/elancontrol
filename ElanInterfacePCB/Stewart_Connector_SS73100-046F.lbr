@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -153,14 +153,14 @@
 <pad name="P$6" x="7.62" y="2.54" drill="0.889"/>
 <pad name="P$7" x="8.89" y="0" drill="0.889"/>
 <pad name="P$8" x="10.16" y="2.54" drill="0.889"/>
-<pad name="P$9" x="1.27" y="6.5786" drill="0.889"/>
-<pad name="P$10" x="2.54" y="9.1186" drill="0.889"/>
-<pad name="P$11" x="3.81" y="6.5786" drill="0.889"/>
-<pad name="P$12" x="5.08" y="9.1186" drill="0.889"/>
-<pad name="P$13" x="6.35" y="6.5786" drill="0.889"/>
-<pad name="P$14" x="7.62" y="9.1186" drill="0.889"/>
-<pad name="P$15" x="8.89" y="6.5786" drill="0.889"/>
-<pad name="P$16" x="10.16" y="9.1186" drill="0.889"/>
+<pad name="P$16" x="1.27" y="6.5786" drill="0.889"/>
+<pad name="P$15" x="2.54" y="9.1186" drill="0.889"/>
+<pad name="P$14" x="3.81" y="6.5786" drill="0.889"/>
+<pad name="P$13" x="5.08" y="9.1186" drill="0.889"/>
+<pad name="P$12" x="6.35" y="6.5786" drill="0.889"/>
+<pad name="P$11" x="7.62" y="9.1186" drill="0.889"/>
+<pad name="P$10" x="8.89" y="6.5786" drill="0.889"/>
+<pad name="P$9" x="10.16" y="9.1186" drill="0.889"/>
 <pad name="P$17" x="15.24" y="0" drill="0.889"/>
 <pad name="P$18" x="16.51" y="2.54" drill="0.889"/>
 <pad name="P$19" x="17.78" y="0" drill="0.889"/>
@@ -169,14 +169,14 @@
 <pad name="P$22" x="21.59" y="2.54" drill="0.889"/>
 <pad name="P$23" x="22.86" y="0" drill="0.889"/>
 <pad name="P$24" x="24.13" y="2.54" drill="0.889"/>
-<pad name="P$25" x="15.24" y="6.5786" drill="0.889"/>
-<pad name="P$26" x="16.51" y="9.1186" drill="0.889"/>
-<pad name="P$27" x="17.78" y="6.5786" drill="0.889"/>
-<pad name="P$28" x="19.05" y="9.1186" drill="0.889"/>
-<pad name="P$29" x="20.32" y="6.5786" drill="0.889"/>
-<pad name="P$30" x="21.59" y="9.1186" drill="0.889"/>
-<pad name="P$31" x="22.86" y="6.5786" drill="0.889"/>
-<pad name="P$32" x="24.13" y="9.1186" drill="0.889"/>
+<pad name="P$32" x="15.24" y="6.5786" drill="0.889"/>
+<pad name="P$31" x="16.51" y="9.1186" drill="0.889"/>
+<pad name="P$30" x="17.78" y="6.5786" drill="0.889"/>
+<pad name="P$29" x="19.05" y="9.1186" drill="0.889"/>
+<pad name="P$28" x="20.32" y="6.5786" drill="0.889"/>
+<pad name="P$27" x="21.59" y="9.1186" drill="0.889"/>
+<pad name="P$26" x="22.86" y="6.5786" drill="0.889"/>
+<pad name="P$25" x="24.13" y="9.1186" drill="0.889"/>
 <pad name="P$33" x="29.21" y="0" drill="0.889"/>
 <pad name="P$34" x="30.48" y="2.54" drill="0.889"/>
 <pad name="P$35" x="31.75" y="0" drill="0.889"/>
@@ -185,14 +185,14 @@
 <pad name="P$38" x="35.56" y="2.54" drill="0.889"/>
 <pad name="P$39" x="36.83" y="0" drill="0.889"/>
 <pad name="P$40" x="38.1" y="2.54" drill="0.889"/>
-<pad name="P$41" x="29.21" y="6.5786" drill="0.889"/>
-<pad name="P$42" x="30.48" y="9.1186" drill="0.889"/>
-<pad name="P$43" x="31.75" y="6.5786" drill="0.889"/>
-<pad name="P$44" x="33.02" y="9.1186" drill="0.889"/>
-<pad name="P$45" x="34.29" y="6.5786" drill="0.889"/>
-<pad name="P$46" x="35.56" y="9.1186" drill="0.889"/>
-<pad name="P$47" x="36.83" y="6.5786" drill="0.889"/>
-<pad name="P$48" x="38.1" y="9.1186" drill="0.889"/>
+<pad name="P$48" x="29.21" y="6.5786" drill="0.889"/>
+<pad name="P$47" x="30.48" y="9.1186" drill="0.889"/>
+<pad name="P$46" x="31.75" y="6.5786" drill="0.889"/>
+<pad name="P$45" x="33.02" y="9.1186" drill="0.889"/>
+<pad name="P$44" x="34.29" y="6.5786" drill="0.889"/>
+<pad name="P$43" x="35.56" y="9.1186" drill="0.889"/>
+<pad name="P$42" x="36.83" y="6.5786" drill="0.889"/>
+<pad name="P$41" x="38.1" y="9.1186" drill="0.889"/>
 <pad name="P$49" x="43.18" y="0" drill="0.889"/>
 <pad name="P$50" x="44.45" y="2.54" drill="0.889"/>
 <pad name="P$51" x="45.72" y="0" drill="0.889"/>
@@ -201,14 +201,14 @@
 <pad name="P$54" x="49.53" y="2.54" drill="0.889"/>
 <pad name="P$55" x="50.8" y="0" drill="0.889"/>
 <pad name="P$56" x="52.07" y="2.54" drill="0.889"/>
-<pad name="P$57" x="43.18" y="6.5786" drill="0.889"/>
-<pad name="P$58" x="44.45" y="9.1186" drill="0.889"/>
-<pad name="P$59" x="45.72" y="6.5786" drill="0.889"/>
-<pad name="P$60" x="46.99" y="9.1186" drill="0.889"/>
-<pad name="P$61" x="48.26" y="6.5786" drill="0.889"/>
-<pad name="P$62" x="49.53" y="9.1186" drill="0.889"/>
-<pad name="P$63" x="50.8" y="6.5786" drill="0.889"/>
-<pad name="P$64" x="52.07" y="9.1186" drill="0.889"/>
+<pad name="P$64" x="43.18" y="6.5786" drill="0.889"/>
+<pad name="P$63" x="44.45" y="9.1186" drill="0.889"/>
+<pad name="P$62" x="45.72" y="6.5786" drill="0.889"/>
+<pad name="P$61" x="46.99" y="9.1186" drill="0.889"/>
+<pad name="P$60" x="48.26" y="6.5786" drill="0.889"/>
+<pad name="P$59" x="49.53" y="9.1186" drill="0.889"/>
+<pad name="P$58" x="50.8" y="6.5786" drill="0.889"/>
+<pad name="P$57" x="52.07" y="9.1186" drill="0.889"/>
 <pad name="P$65" x="57.15" y="0" drill="0.889"/>
 <pad name="P$66" x="58.42" y="2.54" drill="0.889"/>
 <pad name="P$67" x="59.69" y="0" drill="0.889"/>
@@ -217,14 +217,14 @@
 <pad name="P$70" x="63.5" y="2.54" drill="0.889"/>
 <pad name="P$71" x="64.77" y="0" drill="0.889"/>
 <pad name="P$72" x="66.04" y="2.54" drill="0.889"/>
-<pad name="P$73" x="57.15" y="6.5786" drill="0.889"/>
-<pad name="P$74" x="58.42" y="9.1186" drill="0.889"/>
-<pad name="P$75" x="59.69" y="6.5786" drill="0.889"/>
-<pad name="P$76" x="60.96" y="9.1186" drill="0.889"/>
-<pad name="P$77" x="62.23" y="6.5786" drill="0.889"/>
-<pad name="P$78" x="63.5" y="9.1186" drill="0.889"/>
-<pad name="P$79" x="64.77" y="6.5786" drill="0.889"/>
-<pad name="P$80" x="66.04" y="9.1186" drill="0.889"/>
+<pad name="P$80" x="57.15" y="6.5786" drill="0.889"/>
+<pad name="P$79" x="58.42" y="9.1186" drill="0.889"/>
+<pad name="P$78" x="59.69" y="6.5786" drill="0.889"/>
+<pad name="P$77" x="60.96" y="9.1186" drill="0.889"/>
+<pad name="P$76" x="62.23" y="6.5786" drill="0.889"/>
+<pad name="P$75" x="63.5" y="9.1186" drill="0.889"/>
+<pad name="P$74" x="64.77" y="6.5786" drill="0.889"/>
+<pad name="P$73" x="66.04" y="9.1186" drill="0.889"/>
 <pad name="P$81" x="71.12" y="0" drill="0.889"/>
 <pad name="P$82" x="72.39" y="2.54" drill="0.889"/>
 <pad name="P$83" x="73.66" y="0" drill="0.889"/>
@@ -233,14 +233,14 @@
 <pad name="P$86" x="77.47" y="2.54" drill="0.889"/>
 <pad name="P$87" x="78.74" y="0" drill="0.889"/>
 <pad name="P$88" x="80.01" y="2.54" drill="0.889"/>
-<pad name="P$89" x="71.12" y="6.5786" drill="0.889"/>
-<pad name="P$90" x="72.39" y="9.1186" drill="0.889"/>
-<pad name="P$91" x="73.66" y="6.5786" drill="0.889"/>
-<pad name="P$92" x="74.93" y="9.1186" drill="0.889"/>
-<pad name="P$93" x="76.2" y="6.5786" drill="0.889"/>
-<pad name="P$94" x="77.47" y="9.1186" drill="0.889"/>
-<pad name="P$95" x="78.74" y="6.5786" drill="0.889"/>
-<pad name="P$96" x="80.01" y="9.1186" drill="0.889"/>
+<pad name="P$96" x="71.12" y="6.5786" drill="0.889"/>
+<pad name="P$95" x="72.39" y="9.1186" drill="0.889"/>
+<pad name="P$94" x="73.66" y="6.5786" drill="0.889"/>
+<pad name="P$93" x="74.93" y="9.1186" drill="0.889"/>
+<pad name="P$92" x="76.2" y="6.5786" drill="0.889"/>
+<pad name="P$91" x="77.47" y="9.1186" drill="0.889"/>
+<pad name="P$90" x="78.74" y="6.5786" drill="0.889"/>
+<pad name="P$89" x="80.01" y="9.1186" drill="0.889"/>
 <hole x="0" y="-6.35" drill="3.3528"/>
 <hole x="81.28" y="-6.35" drill="3.3528"/>
 <hole x="-2.1336" y="2.794" drill="1.5748"/>
@@ -325,14 +325,14 @@
 <connect gate="G$1" pin="6" pad="P$6"/>
 <connect gate="G$1" pin="7" pad="P$7"/>
 <connect gate="G$1" pin="8" pad="P$8"/>
-<connect gate="G$10" pin="1" pad="P$73"/>
-<connect gate="G$10" pin="2" pad="P$74"/>
-<connect gate="G$10" pin="3" pad="P$75"/>
-<connect gate="G$10" pin="4" pad="P$76"/>
-<connect gate="G$10" pin="5" pad="P$77"/>
-<connect gate="G$10" pin="6" pad="P$78"/>
-<connect gate="G$10" pin="7" pad="P$79"/>
-<connect gate="G$10" pin="8" pad="P$80"/>
+<connect gate="G$10" pin="1" pad="P$80"/>
+<connect gate="G$10" pin="2" pad="P$79"/>
+<connect gate="G$10" pin="3" pad="P$78"/>
+<connect gate="G$10" pin="4" pad="P$77"/>
+<connect gate="G$10" pin="5" pad="P$76"/>
+<connect gate="G$10" pin="6" pad="P$75"/>
+<connect gate="G$10" pin="7" pad="P$74"/>
+<connect gate="G$10" pin="8" pad="P$73"/>
 <connect gate="G$11" pin="1" pad="P$81"/>
 <connect gate="G$11" pin="2" pad="P$82"/>
 <connect gate="G$11" pin="3" pad="P$83"/>
@@ -341,22 +341,22 @@
 <connect gate="G$11" pin="6" pad="P$86"/>
 <connect gate="G$11" pin="7" pad="P$87"/>
 <connect gate="G$11" pin="8" pad="P$88"/>
-<connect gate="G$12" pin="1" pad="P$89"/>
-<connect gate="G$12" pin="2" pad="P$90"/>
-<connect gate="G$12" pin="3" pad="P$91"/>
-<connect gate="G$12" pin="4" pad="P$92"/>
-<connect gate="G$12" pin="5" pad="P$93"/>
-<connect gate="G$12" pin="6" pad="P$94"/>
-<connect gate="G$12" pin="7" pad="P$95"/>
-<connect gate="G$12" pin="8" pad="P$96"/>
-<connect gate="G$2" pin="1" pad="P$9"/>
-<connect gate="G$2" pin="2" pad="P$10"/>
-<connect gate="G$2" pin="3" pad="P$11"/>
-<connect gate="G$2" pin="4" pad="P$12"/>
-<connect gate="G$2" pin="5" pad="P$13"/>
-<connect gate="G$2" pin="6" pad="P$14"/>
-<connect gate="G$2" pin="7" pad="P$15"/>
-<connect gate="G$2" pin="8" pad="P$16"/>
+<connect gate="G$12" pin="1" pad="P$96"/>
+<connect gate="G$12" pin="2" pad="P$95"/>
+<connect gate="G$12" pin="3" pad="P$94"/>
+<connect gate="G$12" pin="4" pad="P$93"/>
+<connect gate="G$12" pin="5" pad="P$92"/>
+<connect gate="G$12" pin="6" pad="P$91"/>
+<connect gate="G$12" pin="7" pad="P$90"/>
+<connect gate="G$12" pin="8" pad="P$89"/>
+<connect gate="G$2" pin="1" pad="P$16"/>
+<connect gate="G$2" pin="2" pad="P$15"/>
+<connect gate="G$2" pin="3" pad="P$14"/>
+<connect gate="G$2" pin="4" pad="P$13"/>
+<connect gate="G$2" pin="5" pad="P$12"/>
+<connect gate="G$2" pin="6" pad="P$11"/>
+<connect gate="G$2" pin="7" pad="P$10"/>
+<connect gate="G$2" pin="8" pad="P$9"/>
 <connect gate="G$3" pin="1" pad="P$17"/>
 <connect gate="G$3" pin="2" pad="P$18"/>
 <connect gate="G$3" pin="3" pad="P$19"/>
@@ -365,14 +365,14 @@
 <connect gate="G$3" pin="6" pad="P$22"/>
 <connect gate="G$3" pin="7" pad="P$23"/>
 <connect gate="G$3" pin="8" pad="P$24"/>
-<connect gate="G$4" pin="1" pad="P$25"/>
-<connect gate="G$4" pin="2" pad="P$26"/>
-<connect gate="G$4" pin="3" pad="P$27"/>
-<connect gate="G$4" pin="4" pad="P$28"/>
-<connect gate="G$4" pin="5" pad="P$29"/>
-<connect gate="G$4" pin="6" pad="P$30"/>
-<connect gate="G$4" pin="7" pad="P$31"/>
-<connect gate="G$4" pin="8" pad="P$32"/>
+<connect gate="G$4" pin="1" pad="P$32"/>
+<connect gate="G$4" pin="2" pad="P$31"/>
+<connect gate="G$4" pin="3" pad="P$30"/>
+<connect gate="G$4" pin="4" pad="P$29"/>
+<connect gate="G$4" pin="5" pad="P$28"/>
+<connect gate="G$4" pin="6" pad="P$27"/>
+<connect gate="G$4" pin="7" pad="P$26"/>
+<connect gate="G$4" pin="8" pad="P$25"/>
 <connect gate="G$5" pin="1" pad="P$33"/>
 <connect gate="G$5" pin="2" pad="P$34"/>
 <connect gate="G$5" pin="3" pad="P$35"/>
@@ -381,14 +381,14 @@
 <connect gate="G$5" pin="6" pad="P$38"/>
 <connect gate="G$5" pin="7" pad="P$39"/>
 <connect gate="G$5" pin="8" pad="P$40"/>
-<connect gate="G$6" pin="1" pad="P$41"/>
-<connect gate="G$6" pin="2" pad="P$42"/>
-<connect gate="G$6" pin="3" pad="P$43"/>
-<connect gate="G$6" pin="4" pad="P$44"/>
-<connect gate="G$6" pin="5" pad="P$45"/>
-<connect gate="G$6" pin="6" pad="P$46"/>
-<connect gate="G$6" pin="7" pad="P$47"/>
-<connect gate="G$6" pin="8" pad="P$48"/>
+<connect gate="G$6" pin="1" pad="P$48"/>
+<connect gate="G$6" pin="2" pad="P$47"/>
+<connect gate="G$6" pin="3" pad="P$46"/>
+<connect gate="G$6" pin="4" pad="P$45"/>
+<connect gate="G$6" pin="5" pad="P$44"/>
+<connect gate="G$6" pin="6" pad="P$43"/>
+<connect gate="G$6" pin="7" pad="P$42"/>
+<connect gate="G$6" pin="8" pad="P$41"/>
 <connect gate="G$7" pin="1" pad="P$49"/>
 <connect gate="G$7" pin="2" pad="P$50"/>
 <connect gate="G$7" pin="3" pad="P$51"/>
@@ -397,14 +397,14 @@
 <connect gate="G$7" pin="6" pad="P$54"/>
 <connect gate="G$7" pin="7" pad="P$55"/>
 <connect gate="G$7" pin="8" pad="P$56"/>
-<connect gate="G$8" pin="1" pad="P$57"/>
-<connect gate="G$8" pin="2" pad="P$58"/>
-<connect gate="G$8" pin="3" pad="P$59"/>
-<connect gate="G$8" pin="4" pad="P$60"/>
-<connect gate="G$8" pin="5" pad="P$61"/>
-<connect gate="G$8" pin="6" pad="P$62"/>
-<connect gate="G$8" pin="7" pad="P$63"/>
-<connect gate="G$8" pin="8" pad="P$64"/>
+<connect gate="G$8" pin="1" pad="P$64"/>
+<connect gate="G$8" pin="2" pad="P$63"/>
+<connect gate="G$8" pin="3" pad="P$62"/>
+<connect gate="G$8" pin="4" pad="P$61"/>
+<connect gate="G$8" pin="5" pad="P$60"/>
+<connect gate="G$8" pin="6" pad="P$59"/>
+<connect gate="G$8" pin="7" pad="P$58"/>
+<connect gate="G$8" pin="8" pad="P$57"/>
 <connect gate="G$9" pin="1" pad="P$65"/>
 <connect gate="G$9" pin="2" pad="P$66"/>
 <connect gate="G$9" pin="3" pad="P$67"/>
