@@ -149,12 +149,12 @@
 </layers>
 <schematic xreflabel="%F%N/%S.%C%R" xrefpart="/%S.%C%R">
 <libraries>
-<library name="frames">
+<library name="frames" urn="urn:adsk.eagle:library:229">
 <description>&lt;b&gt;Frames for Sheet and Layout&lt;/b&gt;</description>
 <packages>
 </packages>
 <symbols>
-<symbol name="A3L-LOC">
+<symbol name="A3L-LOC" urn="urn:adsk.eagle:symbol:13881/1" library_version="1">
 <wire x1="288.29" y1="3.81" x2="342.265" y2="3.81" width="0.1016" layer="94"/>
 <wire x1="342.265" y1="3.81" x2="373.38" y2="3.81" width="0.1016" layer="94"/>
 <wire x1="373.38" y1="3.81" x2="383.54" y2="3.81" width="0.1016" layer="94"/>
@@ -182,7 +182,7 @@
 </symbol>
 </symbols>
 <devicesets>
-<deviceset name="A3L-LOC" prefix="FRAME" uservalue="yes">
+<deviceset name="A3L-LOC" urn="urn:adsk.eagle:component:13942/1" prefix="FRAME" uservalue="yes" library_version="1">
 <description>&lt;b&gt;FRAME&lt;/b&gt;&lt;p&gt;
 DIN A3, landscape with location and doc. field</description>
 <gates>
@@ -555,22 +555,22 @@ DIN A3, landscape with location and doc. field</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="supply1">
+<library name="supply1" urn="urn:adsk.eagle:library:371">
 <packages>
 </packages>
 <symbols>
-<symbol name="GND">
+<symbol name="GND" urn="urn:adsk.eagle:symbol:26925/1" library_version="1">
 <wire x1="-1.905" y1="0" x2="1.905" y2="0" width="0.254" layer="94"/>
 <text x="-2.54" y="-2.54" size="1.778" layer="96">&gt;VALUE</text>
 <pin name="GND" x="0" y="2.54" visible="off" length="short" direction="sup" rot="R270"/>
 </symbol>
-<symbol name="+3V3">
+<symbol name="+3V3" urn="urn:adsk.eagle:symbol:26950/1" library_version="1">
 <wire x1="1.27" y1="-1.905" x2="0" y2="0" width="0.254" layer="94"/>
 <wire x1="0" y1="0" x2="-1.27" y2="-1.905" width="0.254" layer="94"/>
 <text x="-2.54" y="-5.08" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
 <pin name="+3V3" x="0" y="-2.54" visible="off" length="short" direction="sup" rot="R90"/>
 </symbol>
-<symbol name="+5V">
+<symbol name="+5V" urn="urn:adsk.eagle:symbol:26929/1" library_version="1">
 <wire x1="1.27" y1="-1.905" x2="0" y2="0" width="0.254" layer="94"/>
 <wire x1="0" y1="0" x2="-1.27" y2="-1.905" width="0.254" layer="94"/>
 <text x="-2.54" y="-5.08" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
@@ -578,7 +578,7 @@ DIN A3, landscape with location and doc. field</description>
 </symbol>
 </symbols>
 <devicesets>
-<deviceset name="GND" prefix="GND">
+<deviceset name="GND" urn="urn:adsk.eagle:component:26954/1" prefix="GND" library_version="1">
 <description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
 <gates>
 <gate name="1" symbol="GND" x="0" y="0"/>
@@ -591,7 +591,7 @@ DIN A3, landscape with location and doc. field</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="+3V3" prefix="+3V3">
+<deviceset name="+3V3" urn="urn:adsk.eagle:component:26981/1" prefix="+3V3" library_version="1">
 <description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
 <gates>
 <gate name="G$1" symbol="+3V3" x="0" y="0"/>
@@ -604,7 +604,7 @@ DIN A3, landscape with location and doc. field</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="+5V" prefix="P+">
+<deviceset name="+5V" urn="urn:adsk.eagle:component:26963/1" prefix="P+" library_version="1">
 <description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
 <gates>
 <gate name="1" symbol="+5V" x="0" y="0"/>
@@ -9391,14 +9391,14 @@ In this library the device names are the same as the pin names of the symbols, t
 <pad name="P$6" x="7.62" y="2.54" drill="0.889"/>
 <pad name="P$7" x="8.89" y="0" drill="0.889"/>
 <pad name="P$8" x="10.16" y="2.54" drill="0.889"/>
-<pad name="P$9" x="1.27" y="6.5786" drill="0.889"/>
-<pad name="P$10" x="2.54" y="9.1186" drill="0.889"/>
-<pad name="P$11" x="3.81" y="6.5786" drill="0.889"/>
-<pad name="P$12" x="5.08" y="9.1186" drill="0.889"/>
-<pad name="P$13" x="6.35" y="6.5786" drill="0.889"/>
-<pad name="P$14" x="7.62" y="9.1186" drill="0.889"/>
-<pad name="P$15" x="8.89" y="6.5786" drill="0.889"/>
-<pad name="P$16" x="10.16" y="9.1186" drill="0.889"/>
+<pad name="P$16" x="1.27" y="6.5786" drill="0.889"/>
+<pad name="P$15" x="2.54" y="9.1186" drill="0.889"/>
+<pad name="P$14" x="3.81" y="6.5786" drill="0.889"/>
+<pad name="P$13" x="5.08" y="9.1186" drill="0.889"/>
+<pad name="P$12" x="6.35" y="6.5786" drill="0.889"/>
+<pad name="P$11" x="7.62" y="9.1186" drill="0.889"/>
+<pad name="P$10" x="8.89" y="6.5786" drill="0.889"/>
+<pad name="P$9" x="10.16" y="9.1186" drill="0.889"/>
 <pad name="P$17" x="15.24" y="0" drill="0.889"/>
 <pad name="P$18" x="16.51" y="2.54" drill="0.889"/>
 <pad name="P$19" x="17.78" y="0" drill="0.889"/>
@@ -9407,14 +9407,14 @@ In this library the device names are the same as the pin names of the symbols, t
 <pad name="P$22" x="21.59" y="2.54" drill="0.889"/>
 <pad name="P$23" x="22.86" y="0" drill="0.889"/>
 <pad name="P$24" x="24.13" y="2.54" drill="0.889"/>
-<pad name="P$25" x="15.24" y="6.5786" drill="0.889"/>
-<pad name="P$26" x="16.51" y="9.1186" drill="0.889"/>
-<pad name="P$27" x="17.78" y="6.5786" drill="0.889"/>
-<pad name="P$28" x="19.05" y="9.1186" drill="0.889"/>
-<pad name="P$29" x="20.32" y="6.5786" drill="0.889"/>
-<pad name="P$30" x="21.59" y="9.1186" drill="0.889"/>
-<pad name="P$31" x="22.86" y="6.5786" drill="0.889"/>
-<pad name="P$32" x="24.13" y="9.1186" drill="0.889"/>
+<pad name="P$32" x="15.24" y="6.5786" drill="0.889"/>
+<pad name="P$31" x="16.51" y="9.1186" drill="0.889"/>
+<pad name="P$30" x="17.78" y="6.5786" drill="0.889"/>
+<pad name="P$29" x="19.05" y="9.1186" drill="0.889"/>
+<pad name="P$28" x="20.32" y="6.5786" drill="0.889"/>
+<pad name="P$27" x="21.59" y="9.1186" drill="0.889"/>
+<pad name="P$26" x="22.86" y="6.5786" drill="0.889"/>
+<pad name="P$25" x="24.13" y="9.1186" drill="0.889"/>
 <pad name="P$33" x="29.21" y="0" drill="0.889"/>
 <pad name="P$34" x="30.48" y="2.54" drill="0.889"/>
 <pad name="P$35" x="31.75" y="0" drill="0.889"/>
@@ -9423,14 +9423,14 @@ In this library the device names are the same as the pin names of the symbols, t
 <pad name="P$38" x="35.56" y="2.54" drill="0.889"/>
 <pad name="P$39" x="36.83" y="0" drill="0.889"/>
 <pad name="P$40" x="38.1" y="2.54" drill="0.889"/>
-<pad name="P$41" x="29.21" y="6.5786" drill="0.889"/>
-<pad name="P$42" x="30.48" y="9.1186" drill="0.889"/>
-<pad name="P$43" x="31.75" y="6.5786" drill="0.889"/>
-<pad name="P$44" x="33.02" y="9.1186" drill="0.889"/>
-<pad name="P$45" x="34.29" y="6.5786" drill="0.889"/>
-<pad name="P$46" x="35.56" y="9.1186" drill="0.889"/>
-<pad name="P$47" x="36.83" y="6.5786" drill="0.889"/>
-<pad name="P$48" x="38.1" y="9.1186" drill="0.889"/>
+<pad name="P$48" x="29.21" y="6.5786" drill="0.889"/>
+<pad name="P$47" x="30.48" y="9.1186" drill="0.889"/>
+<pad name="P$46" x="31.75" y="6.5786" drill="0.889"/>
+<pad name="P$45" x="33.02" y="9.1186" drill="0.889"/>
+<pad name="P$44" x="34.29" y="6.5786" drill="0.889"/>
+<pad name="P$43" x="35.56" y="9.1186" drill="0.889"/>
+<pad name="P$42" x="36.83" y="6.5786" drill="0.889"/>
+<pad name="P$41" x="38.1" y="9.1186" drill="0.889"/>
 <pad name="P$49" x="43.18" y="0" drill="0.889"/>
 <pad name="P$50" x="44.45" y="2.54" drill="0.889"/>
 <pad name="P$51" x="45.72" y="0" drill="0.889"/>
@@ -9439,14 +9439,14 @@ In this library the device names are the same as the pin names of the symbols, t
 <pad name="P$54" x="49.53" y="2.54" drill="0.889"/>
 <pad name="P$55" x="50.8" y="0" drill="0.889"/>
 <pad name="P$56" x="52.07" y="2.54" drill="0.889"/>
-<pad name="P$57" x="43.18" y="6.5786" drill="0.889"/>
-<pad name="P$58" x="44.45" y="9.1186" drill="0.889"/>
-<pad name="P$59" x="45.72" y="6.5786" drill="0.889"/>
-<pad name="P$60" x="46.99" y="9.1186" drill="0.889"/>
-<pad name="P$61" x="48.26" y="6.5786" drill="0.889"/>
-<pad name="P$62" x="49.53" y="9.1186" drill="0.889"/>
-<pad name="P$63" x="50.8" y="6.5786" drill="0.889"/>
-<pad name="P$64" x="52.07" y="9.1186" drill="0.889"/>
+<pad name="P$64" x="43.18" y="6.5786" drill="0.889"/>
+<pad name="P$63" x="44.45" y="9.1186" drill="0.889"/>
+<pad name="P$62" x="45.72" y="6.5786" drill="0.889"/>
+<pad name="P$61" x="46.99" y="9.1186" drill="0.889"/>
+<pad name="P$60" x="48.26" y="6.5786" drill="0.889"/>
+<pad name="P$59" x="49.53" y="9.1186" drill="0.889"/>
+<pad name="P$58" x="50.8" y="6.5786" drill="0.889"/>
+<pad name="P$57" x="52.07" y="9.1186" drill="0.889"/>
 <pad name="P$65" x="57.15" y="0" drill="0.889"/>
 <pad name="P$66" x="58.42" y="2.54" drill="0.889"/>
 <pad name="P$67" x="59.69" y="0" drill="0.889"/>
@@ -9455,14 +9455,14 @@ In this library the device names are the same as the pin names of the symbols, t
 <pad name="P$70" x="63.5" y="2.54" drill="0.889"/>
 <pad name="P$71" x="64.77" y="0" drill="0.889"/>
 <pad name="P$72" x="66.04" y="2.54" drill="0.889"/>
-<pad name="P$73" x="57.15" y="6.5786" drill="0.889"/>
-<pad name="P$74" x="58.42" y="9.1186" drill="0.889"/>
-<pad name="P$75" x="59.69" y="6.5786" drill="0.889"/>
-<pad name="P$76" x="60.96" y="9.1186" drill="0.889"/>
-<pad name="P$77" x="62.23" y="6.5786" drill="0.889"/>
-<pad name="P$78" x="63.5" y="9.1186" drill="0.889"/>
-<pad name="P$79" x="64.77" y="6.5786" drill="0.889"/>
-<pad name="P$80" x="66.04" y="9.1186" drill="0.889"/>
+<pad name="P$80" x="57.15" y="6.5786" drill="0.889"/>
+<pad name="P$79" x="58.42" y="9.1186" drill="0.889"/>
+<pad name="P$78" x="59.69" y="6.5786" drill="0.889"/>
+<pad name="P$77" x="60.96" y="9.1186" drill="0.889"/>
+<pad name="P$76" x="62.23" y="6.5786" drill="0.889"/>
+<pad name="P$75" x="63.5" y="9.1186" drill="0.889"/>
+<pad name="P$74" x="64.77" y="6.5786" drill="0.889"/>
+<pad name="P$73" x="66.04" y="9.1186" drill="0.889"/>
 <pad name="P$81" x="71.12" y="0" drill="0.889"/>
 <pad name="P$82" x="72.39" y="2.54" drill="0.889"/>
 <pad name="P$83" x="73.66" y="0" drill="0.889"/>
@@ -9471,14 +9471,14 @@ In this library the device names are the same as the pin names of the symbols, t
 <pad name="P$86" x="77.47" y="2.54" drill="0.889"/>
 <pad name="P$87" x="78.74" y="0" drill="0.889"/>
 <pad name="P$88" x="80.01" y="2.54" drill="0.889"/>
-<pad name="P$89" x="71.12" y="6.5786" drill="0.889"/>
-<pad name="P$90" x="72.39" y="9.1186" drill="0.889"/>
-<pad name="P$91" x="73.66" y="6.5786" drill="0.889"/>
-<pad name="P$92" x="74.93" y="9.1186" drill="0.889"/>
-<pad name="P$93" x="76.2" y="6.5786" drill="0.889"/>
-<pad name="P$94" x="77.47" y="9.1186" drill="0.889"/>
-<pad name="P$95" x="78.74" y="6.5786" drill="0.889"/>
-<pad name="P$96" x="80.01" y="9.1186" drill="0.889"/>
+<pad name="P$96" x="71.12" y="6.5786" drill="0.889"/>
+<pad name="P$95" x="72.39" y="9.1186" drill="0.889"/>
+<pad name="P$94" x="73.66" y="6.5786" drill="0.889"/>
+<pad name="P$93" x="74.93" y="9.1186" drill="0.889"/>
+<pad name="P$92" x="76.2" y="6.5786" drill="0.889"/>
+<pad name="P$91" x="77.47" y="9.1186" drill="0.889"/>
+<pad name="P$90" x="78.74" y="6.5786" drill="0.889"/>
+<pad name="P$89" x="80.01" y="9.1186" drill="0.889"/>
 <hole x="0" y="-6.35" drill="3.3528"/>
 <hole x="81.28" y="-6.35" drill="3.3528"/>
 <hole x="-2.1336" y="2.794" drill="1.5748"/>
@@ -9671,11 +9671,11 @@ In this library the device names are the same as the pin names of the symbols, t
 </classes>
 <parts>
 <part name="K1" library="FLYFISH" deviceset="PIN20X2" device=""/>
-<part name="FRAME1" library="frames" deviceset="A3L-LOC" device=""/>
-<part name="GND10" library="supply1" deviceset="GND" device=""/>
-<part name="+3V1" library="supply1" deviceset="+3V3" device=""/>
-<part name="GND3" library="supply1" deviceset="GND" device=""/>
-<part name="P+1" library="supply1" deviceset="+5V" device=""/>
+<part name="FRAME1" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A3L-LOC" device=""/>
+<part name="GND10" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="+3V1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
+<part name="GND3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="P+1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
 <part name="Q1" library="SparkFun-DiscreteSemi" library_urn="urn:adsk.eagle:library:514" deviceset="MOSFET-NCH" device="-2N7002PW" package3d_urn="urn:adsk.eagle:package:38456/1" value="310mA/60V/1.6Ω"/>
 <part name="Q2" library="SparkFun-DiscreteSemi" library_urn="urn:adsk.eagle:library:514" deviceset="MOSFET_PCH" device="-SI2309DS" package3d_urn="urn:adsk.eagle:package:38446/1" value="1.1A/60V/600mΩ"/>
 <part name="R4" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="R0805" package3d_urn="urn:adsk.eagle:package:26059/1" value="100"/>
@@ -9692,9 +9692,9 @@ In this library the device names are the same as the pin names of the symbols, t
 <part name="SUPPLY8" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="GND" device=""/>
 <part name="C3" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0805" package3d_urn="urn:adsk.eagle:package:23617/2"/>
 <part name="SUPPLY9" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="GND" device=""/>
-<part name="+3V2" library="supply1" deviceset="+3V3" device=""/>
-<part name="+3V3" library="supply1" deviceset="+3V3" device=""/>
-<part name="+3V4" library="supply1" deviceset="+3V3" device=""/>
+<part name="+3V2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
+<part name="+3V3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
+<part name="+3V4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="Q3" library="SparkFun-DiscreteSemi" library_urn="urn:adsk.eagle:library:514" deviceset="MOSFET-NCH" device="-2N7002PW" package3d_urn="urn:adsk.eagle:package:38456/1" value="310mA/60V/1.6Ω"/>
 <part name="Q4" library="SparkFun-DiscreteSemi" library_urn="urn:adsk.eagle:library:514" deviceset="MOSFET_PCH" device="-SI2309DS" package3d_urn="urn:adsk.eagle:package:38446/1" value="1.1A/60V/600mΩ"/>
 <part name="R1" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="R0805" package3d_urn="urn:adsk.eagle:package:26059/1" value="100"/>
