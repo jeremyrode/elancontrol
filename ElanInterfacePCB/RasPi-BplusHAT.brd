@@ -179,6 +179,7 @@
 <circle x="3.5" y="52.5" radius="1.55" width="3.1" layer="42"/>
 <circle x="61.5" y="3.5" radius="1.55" width="3.1" layer="42"/>
 <circle x="61.5" y="52.5" radius="1.55" width="3.1" layer="42"/>
+<dimension x1="0" y1="3" x2="65" y2="3" x3="32.5" y3="-2" textsize="1.778" layer="1"/>
 </plain>
 <libraries>
 <library name="FLYFISH">
