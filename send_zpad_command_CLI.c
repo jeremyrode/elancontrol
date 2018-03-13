@@ -50,6 +50,8 @@ int main(int argc, char **argv)
   // Set up gpi pointer for direct register access
   setup_io();
  
+  INP_GPIO(chan); // must use INP_GPIO before we can use OUT_GPIO
+  OUT_GPIO(chan);
 
   for (rep=0; rep<5; rep++)
   {
@@ -120,14 +122,7 @@ void setup_io()
    if (gpio_map == MAP_FAILED) {
       printf("mmap error %d\n", (int)gpio_map);//errno also set!
       exit(-1);
-
-  // Set GPIO pins 7-11 to output
-  for (g=5; g<=13; g++)
-  {
-    INP_GPIO(g); // must use INP_GPIO before we can use OUT_GPIO
-    OUT_GPIO(g);
   }
-   }
  
    // Always use volatile pointer!
    gpio = (volatile unsigned *)gpio_map;
