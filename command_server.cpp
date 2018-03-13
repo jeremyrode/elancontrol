@@ -17,8 +17,8 @@ int main(int argc, char* argv[])
             return 1;
         }
         boost::asio::io_service io_service;
-
-	setup_io();
+        
+        setup_io();
         
         udp::endpoint local_endpoint = boost::asio::ip::udp::endpoint(
                 boost::asio::ip::address::from_string(argv[1]), 6969);
@@ -31,11 +31,13 @@ int main(int argc, char* argv[])
             udp::endpoint sender_endpoint;
             //std::cout << "About to RX" << std::endl;
             size_t len = socket.receive_from(boost::asio::buffer(recv_buf), sender_endpoint);
-            for (int x=0; x<len; x++)
+            if (len != 2)
             {
-                std::cout << "Sending: " << std::to_string(recv_buf[x]) << std::endl;
-		send_command(recv_buf[x]);
+                std::cout << "Got non two byte sequence, skipped: " << std::to_string(recv_buf) << std::endl;
+                continue;
             }
+            std::cout << "Sending: " << std::to_string(recv_buf[0]) << " " <<  std::to_string(recv_buf[1]) << std::endl;
+            send_command(recv_buf[0],recv_buf[1]);
         }
     }
     catch (std::exception& e)

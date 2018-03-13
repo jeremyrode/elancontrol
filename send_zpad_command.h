@@ -6,7 +6,7 @@ extern "C"{
 #endif
 
 void setup_io();
-int send_command(int code);
+int send_command(int code,int channel);
 
 #ifdef __cplusplus
 }
