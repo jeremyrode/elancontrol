@@ -5,9 +5,9 @@
 - [x] Create Function to Replicate IR Control on RaspPi GPIO
 - [x] Design Electrical Level Shifter for IR Protocol
 - [x] Write UDP server that listens for commands and sends via GPIO
-- [ ] Verify 6 GPIOs can be used on Pi2
+- [x] Verify (5 for now!) GPIOs can be used on Pi2
 - [x] Verify RS-485 identical on all 6 zones.
-- [ ] Design RaspPi "Hat" PCB with 6 x Level Shifters and 1 x RS-485
+- [x] Design RaspPi "Hat" PCB with 6 x Level Shifters and 1 x RS-485
 - [ ] Andriod GUI / UDP Command sender
 - [ ] Reverse Engineer RS-485 based Status Protocol
 
@@ -18,7 +18,7 @@ Have the command protocol generated from command line program, tested and works 
 ## General Info
 I have a Elan S6 in my house and I love it, if only I could control it via my phone!  It shouldn't be that hard to get a Pi connected!
 
-From some experimentation and manual reading, the S6 receives commands from the Zpads on pin #2 (IR) (Note that Elan’s pin numbering is backwards from the ANSI/TIA-568 standards).  
+From some experimentation and manual reading, the S6 receives commands from the Zpads on pin #2 (IR)  
 
 ## Inital Feasibility
 This inital goal is to have a Raspberry inject IR commands from a bit banged GPIO.  I'm going to capture the commands from the Zpad, and see if a Pi can bit bang fast enough to replicate them.  Unfortunatly, it looks like pin#2 uses an open collector pull up to 12V.  We will need a level shifter and a PMOS pull-up.  I will build a level shifter, and test if we can command the S6
