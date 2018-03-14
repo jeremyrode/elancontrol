@@ -33,10 +33,10 @@ int main(int argc, char* argv[])
             size_t len = socket.receive_from(boost::asio::buffer(recv_buf), sender_endpoint);
             if (len != 2)
             {
-                std::cout << "Got non two byte sequence, skipped: " << std::to_string(recv_buf) << std::endl;
+                std::cout << "Got non two byte sequence, skipped" << std::endl;
                 continue;
             }
-            std::cout << "Sending: " << std::to_string(recv_buf[0]) << " " <<  std::to_string(recv_buf[1]) << std::endl;
+            std::cout << "Sending Command: " << std::to_string(recv_buf[0]) << " to chan: " <<  std::to_string(recv_buf[1]) << std::endl;
             send_command(recv_buf[0],recv_buf[1]);
         }
     }

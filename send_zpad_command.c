@@ -43,24 +43,24 @@ int send_command(int code,int channel)
     OUT_GPIO(channel);
     for (rep=0; rep<5; rep++)
     {
-        GPIO_SET = 1<<10;
+        GPIO_SET = 1<<channel;
         g=0;
         while (g<906)
         {
             g++;
         }
-        GPIO_CLR = 1<<10;
+        GPIO_CLR = 1<<channel;
         nanosleep((const struct timespec[]){{0,5000000L}}, NULL);
     }
     for (rep=0; rep<6; rep++)
     {
-        GPIO_SET = 1<<10;
+        GPIO_SET = 1<<channel;
         g=0;
         while (g<906)
         {
             g++;
         }
-        GPIO_CLR = 1<<10;
+        GPIO_CLR = 1<<channel;
         if (code & 1<<5-rep)
         {
             nanosleep((const struct timespec[]){{0,7000000L}}, NULL);
@@ -70,13 +70,13 @@ int send_command(int code,int channel)
             nanosleep((const struct timespec[]){{0,5000000L}}, NULL);
         }
     }
-    GPIO_SET = 1<<10;
+    GPIO_SET = 1<<channel;
     g=0;
     while (g<906)
     {
         g++;
     }
-    GPIO_CLR = 1<<10;
+    GPIO_CLR = 1<<channel;
     return 0;
 } // main
 //
