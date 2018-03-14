@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
+</script>
+<script>
+function ProcessSimpleCgi()
+{
+    param1Data = $("#param1").val();
+    param2Data = $("#param2").val();
+    params = "param1=" + param1Data + "&param2=" + param2Data;
+    $.ajax(
+    {
+        type: "POST",
+        url: "/cgi-bin/test2.py",
+        data: params,
+        dataType: "html",
+        success: function (html)
+        {
+            var params = $(html).filter(function(){ return $(this).is('p') });
+            params.each(
+                function()
+                {
+                    var value = "<li>" + $(this).html() + "</li>";
+                    $("#paramsList").append( value );
+                }
+            );
+        },
+        error: function(request, ajaxOptions, thrownError)
+        {
+            $("#debug").html(request.responseText);
+            $("#debug").html("5566");
+        }
+
+    });
+}
+</script>
+</head>
+<body>
+    <div>
+        <span class="rowName">Number One: </span><input id="param1" type="text">
+    </div>
+    <div>
+        <span class="rowName">Number Two: </span><input id="param2" type="text">
+    </div>
+
+    <div><input type="button" value="Submit Query" onclick="ProcessSimpleCgi()"></div>
+
+    <ul id="paramsList"></ul>
+    <div id = "debug"></div>
+
+</body>
+
+</html>
