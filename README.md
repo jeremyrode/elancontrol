@@ -49,6 +49,12 @@ Decoding of the Key Commands (Preamble Omitted):
 
 Circuit takes the 3.3V GPIO from the Pi, and performes a open-collector pull-up.  The S6 seems to have an internal 1k pull-down to ground.  Looking at the Zpads, they have an open-collector pull-up with a ~100 ohm resistor to current limit.  Added a dual diode for over-voltage protection (The Zpads have diode protection as well).
 
-Problem: PMOS is upside down, silly schematic error
+I also prototyped it with some components I had laying around:
+
+![alt text](docs/level_shifter_proto.jpg "Level Shifter Prototype")
+
+## PCB
+
+Trusty old Macrofab to the rescue.  $50 and a few weeks and I got this:
 
 Known issues:  The bottom row of Cat5 Is hard to get out, as the Cat5 connectors are supposed to hang off the edge of the PCB.  This would make the PCB huge, if I'm still trying to use all 4 mounting holes.  No good way to solve this.
