@@ -7,7 +7,7 @@ Hardware:
 - [x] Create Function to Replicate IR Control on RaspPi GPIO
 - [x] Design Electrical Level Shifter for IR Protocol
 - [x] Write UDP server that listens for commands and sends via GPIO
-- [x] Verify (5 for now!) GPIOs can be used on Pi2
+- [x] Verify GPIOs can be used on Pi2
 - [x] Verify RS-485 identical on all 6 zones.
 - [x] Design RaspPi "Hat" PCB with 6 x Level Shifters and 1 x RS-485
 - [x] Test RaspPi "Hat"
