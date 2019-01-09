@@ -60,6 +60,8 @@ I also prototyped it with some components I had laying around:
 
 ## PCB
 
-Trusty old Macrofab to the rescue.  $50 and a few weeks and I got this:
+![alt text](docs/pcb.jpg "Assembled PCB")
+
+Trusty old Macrofab!
 
 Known issues:  The bottom row of Cat5 Is hard to get out, as the Cat5 connectors are supposed to hang off the edge of the PCB.  This would make the PCB huge, if I'm still trying to use all 4 mounting holes.  No good way to solve this.  Need a very high [Rasperry Pi connector](https://www.amazon.com/gp/product/B0756KM3GB/ref=oh_aui_search_detailpage?ie=UTF8&psc=1) to clear (this one is barley tall enough).
