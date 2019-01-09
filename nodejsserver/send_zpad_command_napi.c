@@ -5,6 +5,7 @@ napi_value MyFunction(napi_env env, napi_callback_info info) {
   size_t argc = 2;
   int channel = 0;
   int command = 0;
+  int return_code = 0;
   napi_value argv[1];
   status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
   if (status != napi_ok) {
@@ -18,10 +19,10 @@ napi_value MyFunction(napi_env env, napi_callback_info info) {
   if (status != napi_ok) {
     napi_throw_error(env, NULL, "Invalid command was passed as argument");
   }  
-  napi_value return_code;
+  napi_value my_return_code;
   //Code Here
   return_code = channel + command; //Test shell for API
-  status = napi_create_int32(env, number, &return_code);
+  status = napi_create_int32(env, return_code, &my_return_code);
 
   if (status != napi_ok) {
     napi_throw_error(env, NULL, "Unable to create return value");

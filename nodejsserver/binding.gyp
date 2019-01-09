@@ -1,6 +1,6 @@
 {
     "targets": [{
-        "target_name": "module",
-        "sources": [ "./src/module.c" ]
+        "target_name": "send_zpad_command_napi",
+        "sources": [ "./send_zpad_command_napi.c" ]
     }]
 }
