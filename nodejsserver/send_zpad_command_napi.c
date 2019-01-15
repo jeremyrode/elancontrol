@@ -1,7 +1,7 @@
 #include <node_api.h>
 #include <stdio.h>
 
-napi_value MyFunction(napi_env env, napi_callback_info info) {
+napi_value send_zpad_command_napi(napi_env env, napi_callback_info info) {
   napi_status status;
   size_t argc = 2;
   int channel = 0;
@@ -39,12 +39,12 @@ napi_value Init(napi_env env, napi_value exports) {
   napi_status status;
   napi_value fn;
   printf("About to Create Function\n");
-  status = napi_create_function(env, NULL, 0, MyFunction, NULL, &fn);
+  status = napi_create_function(env, NULL, 0, send_zpad_command_napi, NULL, &fn);
   if (status != napi_ok) {
     napi_throw_error(env, NULL, "Unable to wrap native function");
   }
   printf("About to set named property\n");
-  status = napi_set_named_property(env, exports, "my_function", fn);
+  status = napi_set_named_property(env, exports, "send_zpad_command_napi", fn);
   if (status != napi_ok) {
     napi_throw_error(env, NULL, "Unable to populate exports");
   }

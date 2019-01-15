@@ -3,21 +3,65 @@
   <head>
     <meta charset="utf-8">
     <title>Elan Control</title>
-  </head>
-  <body>
-    <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
-	  <span>Master:</span>
-      <span><button id="1" class="commandbutton" onclick="clickFun(1,2)">Power</button></span>
-      <span><button class="commandbutton" onclick="clickFun(1,3)">+</button></span>
-      <span><button class="commandbutton" onclick="clickFun(1,4)">-</button></span>
+    <style>
+		body {
+			font-size: 64px;
+		}
+		.button {
+			background-color: #4CAF50;
+			color: white;
+			text-align: center;
+			text-decoration: none;
+			width: 100%;
+			height: 150px;
+			font-size: 64px;
+			margin: 4px 2px;
+			cursor: pointer;	
+		}
+		.names {
+			vertical-align: middle;
+		}
+		.btn-group {
+			vertical-align: middle;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: auto 25% 20% 20%;
+			grid-template-rows: 150px 150px 150px 150px 150px 150px ;
+		}
+		.statusspan {
+			color: grey;
+		}
+	</style>
+</head>
+<body>
+	<span class="statusspan" id="statusspan">Loading...</span>
+	<div class="grid-container">
+		<div class="btn-group"><span class="names">Master:</span></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(0,10)">Power</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(4,10)">+</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(36,10)">-</button></div>
+		<div class="btn-group">Bath:</div>
+		<div class="btn-group"><button class="button" onclick="clickFun(0,6)">Power</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(4,6)">+</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(36,6)">-</button></div>
+		<div class="btn-group">Entry:</div>
+		<div class="btn-group"><button class="button" onclick="clickFun(0,9)">Power</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(4,9)">+</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(36,9)">-</button></div>
+		<div class="btn-group">Outside:</div>
+		<div class="btn-group"><button class="button" onclick="clickFun(0,7)">Power</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(4,7)">+</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(36,7)">-</button></div>
+		<div class="btn-group">Office:</div>
+		<div class="btn-group"><button class="button" onclick="clickFun(0,11)">Power</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(4,11)">+</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(36,11)">-</button></div>
+		<div class="btn-group">Kris:</div>
+		<div class="btn-group"><button class="button" onclick="clickFun(0,8)">Power</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(4,8)">+</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(36,8)">-</button></div>
     </div>
-    <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
-	  <span>Master Bath:</span>
-      <span><button id="1" class="commandbutton" onclick="clickFun(1,2)">Power</button></span>
-      <span><button class="commandbutton" onclick="clickFun(2,3)">+</button></span>
-      <span><button class="commandbutton" onclick="clickFun(2,4)">-</button></span>
-    </div>
-    <p id="statusspan">Loading...</span>
     <script>
   statust = document.getElementById("statusspan");
   var connection;

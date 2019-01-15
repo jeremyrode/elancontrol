@@ -1,6 +1,7 @@
 "use strict";
+const addon = require('./build/Release/send_zpad_command_napi');
 // Optional. You will see this name in eg. 'ps' or 'top' command
-process.title = 'node-chat';
+process.title = 'node-elan-server';
 // Port where we'll run the websocket server
 var webSocketsServerPort = 1338;
 // websocket and http servers
@@ -39,6 +40,10 @@ wsServer.on('request', function(request) {
   connection.on('message', function(message) {
         if (message.type === 'utf8') {
             console.log('Received Message: ' + message.utf8Data);
+            var commnds = message.utf8Data.split(":");
+            var command = parseInt(commnds[0]);
+            var channel = parseInt(commnds[1]);
+            console.log(addon.send_zpad_command_napi(command,channel));
         }
         else {
 			console.log('Got non utf8 message');
