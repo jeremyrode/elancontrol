@@ -43,7 +43,7 @@ wsServer.on('request', function(request) {
             var commnds = message.utf8Data.split(":");
             var command = parseInt(commnds[0]);
             var channel = parseInt(commnds[1]);
-            console.log(addon.send_zpad_command_napi(command,channel));
+            console.log(addon.send_zpad_command_napi(channel,command));
         }
         else {
 			console.log('Got non utf8 message');
