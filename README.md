@@ -1,13 +1,13 @@
 # elancontrol
 ### Code to control an Elan System6 Integrated Multi-Zone Controller from RaspberryPi
 
-##What's in this repository:
-commandlinetools: low level software to test the bit-banging Software
-docs: notes / pictures / MATLAB data
-InterfacePCB: Eagle Files to build RaspberryPi HAT interface to the 6 x RJ-45 connectors
-nodejsserver: Code for the control system
+## What's in this repository:
+- commandlinetools: low level software to test the bit-banging Software
+- docs: notes / pictures / MATLAB data
+- InterfacePCB: Eagle Files to build RaspberryPi HAT interface to the 6 x RJ-45 connectors
+- nodejsserver: Code for the control system
 
-###Hardware:
+### Hardware:
 
 - [x] Reverse Engineer IR Control Protocol
 - [x] Create Function to Replicate IR Control on RaspPi GPIO
@@ -18,7 +18,7 @@ nodejsserver: Code for the control system
 - [x] Design RaspPi "Hat" PCB with 6 x Level Shifters and 1 x RS-485
 - [x] Test RaspPi "Hat"
 
-###Software:
+### Software:
 
 - [x] Interface Node.js to bit banging C software via N-API
 - [x] Node.js server via Websockets
