@@ -38,16 +38,16 @@ wsServer.on('request', function(request) {
   console.log((new Date()) + ' Connection accepted.');
   // user sent some message
   connection.on('message', function(message) {
-        if (message.type === 'utf8') {
-            console.log('Received Message: ' + message.utf8Data);
-            var commnds = message.utf8Data.split(":");
-            var command = parseInt(commnds[0]);
-            var channel = parseInt(commnds[1]);
-            addon.send_zpad_command_napi(channel,command);
-        }
-        else {
-			console.log('Got non utf8 message');
-		}
+	if (message.type === 'utf8') {
+		console.log('Received Message: ' + message.utf8Data);
+		var commnds = message.utf8Data.split(":");
+		var command = parseInt(commnds[0]);
+		var channel = parseInt(commnds[1]);
+		addon.send_zpad_command_napi(channel,command);
+	}
+	else {
+		console.log('Got non utf8 message');
+	}
     });
   // user disconnected
   connection.on('close', function(connection) {
