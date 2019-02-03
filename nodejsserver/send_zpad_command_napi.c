@@ -5,9 +5,9 @@
 #include <sys/mman.h>
 #include <unistd.h>
 #include <time.h>
- 
+ // RasberryPi HW specific addresses
 #define BCM2708_PERI_BASE	0x3F000000
-#define GPIO_BASE			(BCM2708_PERI_BASE + 0x200000) /* GPIO controller */ 
+#define GPIO_BASE			(BCM2708_PERI_BASE + 0x200000) /* GPIO controller */
 #define PAGE_SIZE			(4*1024)
 #define BLOCK_SIZE			(4*1024)
 // GPIO setup macros. Always use INP_GPIO(x) before using OUT_GPIO(x) or SET_GPIO_ALT(x,y)
@@ -16,14 +16,15 @@
  // GPIO Macros
 #define						GPIO_SET *(gpio+7)  // sets   bits which are 1 ignores bits which are 0
 #define						GPIO_CLR *(gpio+10) // clears bits which are 1 ignores bits which are 0
- // Bit Banging Short Time Macros (Might be platform / optimization specific)
+ // Bit Banging Time Macros (Might be platform / optimization specific)
+ // Signal high period with for loop spin cycle
 #define HIGH_PERIOD			906
+// Two differend low periods, as timespec
 #define SHORT_PERIOD		(const struct timespec[]){{0,5000000L}}
 #define LONG_PERIOD			(const struct timespec[]){{0,7000000L}}
-  
+
 int  mem_fd;
 void *gpio_map;
-// I/O access
 volatile unsigned *gpio;
 int ready = 0;
 
