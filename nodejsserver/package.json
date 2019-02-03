@@ -2,7 +2,7 @@
   "name": "nodejsserver",
   "version": "0.0.0",
   "description": "Current work in here, getting a HTML/Javascript fronend connected to Node via Websocket to call the C function via N-API",
-  "main": "elan_server.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "node-gyp rebuild"
