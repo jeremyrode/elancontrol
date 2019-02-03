@@ -1,7 +1,13 @@
 # elancontrol
 ### Code to control an Elan System6 Integrated Multi-Zone Controller from RaspberryPi
 
-Hardware:
+## What's in this repository:
+- commandlinetools: low level software to test the bit-banging Software
+- docs: notes / pictures / MATLAB data
+- InterfacePCB: Eagle Files to build RaspberryPi HAT interface to the 6 x RJ-45 connectors
+- nodejsserver: Code for the control system
+
+### Hardware:
 
 - [x] Reverse Engineer IR Control Protocol
 - [x] Create Function to Replicate IR Control on RaspPi GPIO
@@ -12,23 +18,25 @@ Hardware:
 - [x] Design RaspPi "Hat" PCB with 6 x Level Shifters and 1 x RS-485
 - [x] Test RaspPi "Hat"
 
-Software:
+### Software:
 
-- [ ] Interface Node.js to bit banging C software via N-API
-- [ ]  Node.js server via Websockets
-- [ ] Webpage GUI with Websockets interface to the Node.js backend
+- [x] Interface Node.js to bit banging C software via N-API
+- [x] Node.js server via Websockets
+- [x] Webpage GUI with Websockets interface to the Node.js backend
 - [ ] Reverse Engineer RS-485 based Status Protocol to display current state
 
 ## Current Status
-Have the command protocol generated from command line program, tested and works with hand-build level shifter.  PCB version is tested and works from the command line bit banging software (send_zpad_command_CLI) for all 6 zones.
+Full command sending functionality achieved:
+
+HTML Frontend /JavaScript -> Via Websocket -> Node.js Sever -> Via N-API -> C Bitbang GPIO -> Custom Level Shifter pcb
 
 ## General Info
 I have a Elan S6 in my house and I love it, if only I could control it via my phone!  It shouldn't be that hard to get a Pi connected!
 
 ## Inital Feasibility
-This inital goal is to have a Raspberry inject IR commands from a bit banged GPIO.  I'm going to capture the commands from the Zpad, and see if a Pi can bit bang fast enough to replicate them.  Unfortunatly, it looks like pin#2 uses an open collector pull up to 12V.  We will need a level shifter and a PMOS pull-up.  I will build a level shifter, and test if we can command the S6
+This initial goal is to have a Raspberry inject IR commands from a bit banged GPIO.  I'm going to capture the commands from the Zpad, and see if a Pi can bit bang fast enough to replicate them.  Unfortunately, it looks like pin#2 uses an open collector pull up to 12V.  We will need a level shifter and a PMOS pull-up.  I will build a level shifter, and test if we can command the S6
 
-Looking at the commands, they consist of 12 x 12.5 us wide 12V high puleses, with either 5.07 ms spacing (short) or 7.6 ms of spacing (long).
+Looking at the commands, they consist of 12 x 12.5 us wide 12V high pulses, with either 5.07 ms spacing (short) or 7.6 ms of spacing (long).
 The first 6 pulses seem to be a preamble, always spaced short, then the next 6 with either long or short:
 
 ![alt text](docs/ElanZpadCodes.png "Elan S6 Command Scope Capture")
@@ -52,7 +60,7 @@ Decoding of the Key Commands (Preamble Omitted):
 
 ![alt text](docs/level_shifter.png "Level Shifter Schematic")
 
-Circuit takes the 3.3V GPIO from the Pi, and performes a open-collector pull-up.  The S6 seems to have an internal 1k pull-down to ground.  Looking at the Zpads, they have an open-collector pull-up with a ~100 ohm resistor to current limit.  Added a dual diode for over-voltage protection (The Zpads have diode protection as well).
+Circuit takes the 3.3V GPIO from the Pi, and preforms a open-collector pull-up.  The S6 seems to have an internal 1k pull-down to ground.  Looking at the Zpads, they have an open-collector pull-up with a ~100 ohm resistor to current limit.  Added a dual diode for over-voltage protection (The Zpads have diode protection as well).
 
 I also prototyped it with some components I had laying around:
 
