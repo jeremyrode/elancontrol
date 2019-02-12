@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import time
 import serial
 
@@ -12,8 +12,11 @@ ser = serial.Serial(
     timeout=1
     )
 
-while 1:
-    x = ser.read(1)
-    print(x.hex())
+old=ser.read(38)
+while True:
+    x = ser.read(38)
+    if (x != old): # Only print when we change
+       print(x.hex())
+    old = x
     
 
