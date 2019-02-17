@@ -31,7 +31,7 @@ wsServer.on('request', function(request) {
   // user sent some message
   connection.on('message', function(message) {
 	if (message.type === 'utf8') {
-		console.log('Received Message: ' + message.utf8Data);
+		//console.log('Received Message: ' + message.utf8Data);
 		var commnds = message.utf8Data.split(":");
 		var command = parseInt(commnds[0]);
 		var channel = parseInt(commnds[1]);

@@ -1,22 +1,38 @@
 const SerialPort = require('serialport')
-//const ByteLength = require('@serialport/parser-byte-length')
 const Delimiter = require('@serialport/parser-delimiter')
 
 const old_data = Buffer.alloc(35); //38 for delim
 
 function parseVolume(data) {
-	var volumes =[0,0,0,0,0,0];
-	for (i = 1; i <= 6; i++) {
-		volumes[i-1] = 48 - (data[i*6-4] & 0b00111111);
-	}
-	//console.log(data[2].toString(2));
-	console.log(volumes);
+	var volume =[0,0,0,0,0,0];
+	for (i = 0; i < 6; i++) {
+		volume[i] = 48 - data[i*6+2] & 0b00111111;
+	}	
+	return volume;
+}
+
+function parseMute(data) {
+	var mute =[0,0,0,0,0,0];
+	for (i = 0; i < 6; i++) {
+		mute[i] = (data[i*6] & 0b00010000) >>> 4;
+	}	
+	return mute;
+}
+
+function parseInput(data) {
+	var input =[0,0,0,0,0,0];
+	for (i = 0; i < 6; i++) {
+		input[i] = data[i*6] & 0b00000111;
+	}	
+	return input;
 }
 
 function onDiffData(sdata) {
 	if (old_data.compare(sdata) != 0) {
 		//console.log(sdata);
-		parseVolume(sdata);
+		console.log('Volumes ' + parseVolume(sdata));
+		console.log('Mute Status ' + parseMute(sdata));
+		console.log('Input Selections ' + parseInput(sdata));
 		sdata.copy(old_data);
 	}
 }
