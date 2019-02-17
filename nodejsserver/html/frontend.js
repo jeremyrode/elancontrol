@@ -1,7 +1,9 @@
 	
 statust = document.getElementById("statusspan");
 var connection;
-statust.innerHTML = "Jer";
+var checkStatus = 0;
+
+statust.innerHTML = "PreOpen";
 // if user is running mozilla then use it's built-in WebSocket
 window.WebSocket = window.WebSocket || window.MozWebSocket;
 if (window.WebSocket === undefined) {
@@ -9,22 +11,33 @@ if (window.WebSocket === undefined) {
 	exit;
 	}
 else {
-  window.addEventListener("load", onLoad, false);
+  window.addEventListener("load", start, false);
+  statust.innerHTML = "Listener Added";
 }
-   
-function onLoad() {
+ 
+function start() {
 	statust.innerHTML = "Connecting";
 	connection = new WebSocket('ws://192.168.1.157:1338');
-	connection.onopen = function(evt) { onOpen(evt) };
-	connection.onerror = function(evt) { onError(evt) };
-	connection.onmessage = function(evt) { onError(evt) };
-	setInterval(function() {
+	connection.onopen = function(evt) { onOpen(evt); };
+	connection.onerror = function(evt) { onError(evt); };
+	connection.onmessage = function(evt) { onMessage(evt); };
+	if (checkStatus == 0) {
+		checkStatus = setInterval(checkTimeout, 3000);
+	}
+} 
+ 
+ 
+ function checkTimeout() {
     if (connection.readyState !== 1) {
-      statust.innerHTML = "Connection Timeout";
-      console.log('Connection Timeout');
+		statust.innerHTML = "Connection Timeout";
+		console.log('Connection Timeout');
+		start();
+		console.log('Restarted');
     }
-  }, 3000);
-};
+    else {
+		console.log('Connection Fine');
+	}
+}
   
   function onOpen(evt) {
     statust.innerHTML = "Connected";
@@ -37,6 +50,7 @@ function onLoad() {
   };
   
   function onMessage(evt) {
+	  statust.innerHTML = "Message!";
       console.log('Got a message:', message);
   };
  
@@ -44,10 +58,10 @@ function onLoad() {
 	  if (connection.readyState == 1) {
 		  connection.send(channel + ':' + command);
 		  statust.innerHTML = "Sent";
-	      console.log('Got Click');
 	  }
 	  else {
 		  console.log('Got Click, connection not ready');
-		  statust.innerHTML = "Connection Error";
+		  statust.innerHTML = 'Got Click, connection not ready';
+		  start();
 	  }
   };
