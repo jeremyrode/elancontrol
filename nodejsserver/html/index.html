@@ -28,7 +28,21 @@
 		.grid-container {
 			display: grid;
 			grid-template-columns: auto 25% 20% 20%;
-			grid-template-rows: 150px 150px 150px 150px 150px 150px ;
+			grid-template-rows: 150px 70px 150px 70px 150px 70px 150px 70px 150px 70px 150px ;
+		}
+		.volslider {
+			grid-column-start: 2;
+			grid-column-end: 5;
+			width: 100%;
+			justify-self: stretch;
+			vertical-align: top;
+		}
+		.slider {
+
+			width: 100%; /* Full-width */
+			height: 50px; /* Specified height */
+			background: #d3d3d3; /* Grey background */
+			disabled: true;
 		}
 		.statusspan {
 			color: grey;
@@ -38,30 +52,41 @@
 <body>
 	<span class="statusspan" id="statusspan">Loading...</span>
 	<div class="grid-container">
-		<div class="btn-group"><span class="names">Bath:</span></div>
-		<div class="btn-group"><button class="button" onclick="clickFun(0,10)">Power</button></div>
-		<div class="btn-group"><button class="button" onclick="clickFun(4,10)">+</button></div>
-		<div class="btn-group"><button class="button" onclick="clickFun(36,10)">-</button></div>
-		<div class="btn-group">Master:</div>
+		<div class="btn-group"><div>Master:</div><div class="status" id="zone1">Status</div></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(0,6)">Power</button></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(4,6)">+</button></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(36,6)">-</button></div>
-		<div class="btn-group">Patio:</div>
+		<div class="btn-group"></div>
+		<div class="volslider"><input type="range" min="1" max="50" value="0" class="slider" id="zone1s"></div>
+		<div class="btn-group"><div>Shower:</span></div><div class="status" id="zone6">Status</div></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(0,10)">Power</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(4,10)">+</button></div>
+		<div class="btn-group"><button class="button" onclick="clickFun(36,10)">-</button></div>
+		<div class="btn-group"></div>
+		<div class="volslider"><input type="range" min="1" max="50" value="0" class="slider" id="zone6s"></div>
+		<div class="btn-group"><div>Patio:</div><div class="status" id="zone5">Status</div></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(0,9)">Power</button></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(4,9)">+</button></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(36,9)">-</button></div>
-		<div class="btn-group">Entry:</div>
+		<div class="btn-group"></div>
+		<div class="volslider"><input type="range" min="1" max="50" value="0" class="slider" id="zone5s"></div>
+		<div class="btn-group"><div>Entry:</div><div class="status" id="zone2">Status</div></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(0,7)">Power</button></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(4,7)">+</button></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(36,7)">-</button></div>
-		<div class="btn-group">Kris:</div>
+		<div class="btn-group"></div>
+		<div class="volslider"><input type="range" min="1" max="50" value="0" class="slider" id="zone2s"></div>
+		<div class="btn-group"><div>Kris:</div><div class="status" id="zone4">Status</div></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(0,11)">Power</button></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(4,11)">+</button></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(36,11)">-</button></div>
-		<div class="btn-group">Office:</div>
+		<div class="btn-group"></div>
+		<div class="volslider"><input type="range" min="1" max="50" value="0" class="slider" id="zone4s"></div>
+		<div class="btn-group"><div>Office:</div><div class="status" id="zone3">Status</div></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(0,8)">Power</button></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(4,8)">+</button></div>
 		<div class="btn-group"><button class="button" onclick="clickFun(36,8)">-</button></div>
+		<div class="volslider"><input type="range" min="1" max="50" value="0" class="slider" id="zone3s"></div>
     </div>
     <script src="./frontend.js"></script>
   </body>

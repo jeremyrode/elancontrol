@@ -1,5 +1,5 @@
-const SerialPort = require('serialport')
-const Delimiter = require('@serialport/parser-delimiter')
+const SerialPort = require('serialport');
+const Delimiter = require('@serialport/parser-delimiter');
 
 const old_data = Buffer.alloc(35); //38 for delim
 
