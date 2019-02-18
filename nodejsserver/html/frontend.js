@@ -1,4 +1,4 @@
-	
+
 statust = document.getElementById("statusspan");
 
 zone1 = document.getElementById("zone1");
@@ -28,7 +28,7 @@ else {
 	window.addEventListener("load", start, false);
 	statust.innerHTML = "Listener Added";
 }
- 
+
 function start() {
 	statust.innerHTML = "Connecting";
 	connection = new WebSocket('ws://192.168.1.157:1338');
@@ -38,9 +38,9 @@ function start() {
 	if (checkStatus == 0) {
 		checkStatus = setInterval(checkTimeout, 3000);
 	}
-} 
- 
- 
+}
+
+
  function checkTimeout() {
     if (connection.readyState !== 1) {
 		statust.innerHTML = "Connection Timeout";
@@ -49,19 +49,18 @@ function start() {
 		console.log('Restarted');
     }
 }
-  
+
 function onOpen(evt) {
 	statust.innerHTML = "Connected";
 };
-  
+
 function onError(evt) {
 	content.html($('<p>', {
 		text: 'Sorry, but there\'s some problem with your connection or the server is down.'
 	}));
 };
-  
+
 function onMessage(message) {
-	statust.innerHTML = "Message!";
 	try {
 		var json = JSON.parse(message.data);
 	} catch (e) {
@@ -76,8 +75,86 @@ function onMessage(message) {
 	zone4s.value = json.volume[3];
 	zone5s.value = json.volume[4];
 	zone6s.value = json.volume[5];
+	switch (json.input[0]) {
+		case 1:
+		zone1.innerHTML = 'ON';
+		break;
+		case 0:
+		zone1.innerHTML = 'OFF';
+		break;
+		default:
+		zone1.innerHTML = 'ALT Input';
+	}
+	if (json.mute[0] == 1) {
+		zone1.innerHTML = zone1.innerHTML + ' MUTE';
+	}
+	switch (json.input[1]) {
+		case 1:
+		zone2.innerHTML = 'ON';
+		break;
+		case 0:
+		zone2.innerHTML = 'OFF';
+		break;
+		default:
+		zone2.innerHTML = 'ALT Input';
+	}
+	if (json.mute[1] == 1) {
+		zone2.innerHTML = zone2.innerHTML + ' MUTE';
+	}
+	switch (json.input[2]) {
+		case 1:
+		zone3.innerHTML = 'ON';
+		break;
+		case 0:
+		zone3.innerHTML = 'OFF';
+		break;
+		default:
+		zone3.innerHTML = 'ALT Input';
+	}
+	if (json.mute[2] == 1) {
+		zone3.innerHTML = zone3.innerHTML + ' MUTE';
+	}
+	switch (json.input[3]) {
+		case 1:
+		zone4.innerHTML = 'ON';
+		break;
+		case 0:
+		zone4.innerHTML = 'OFF';
+		break;
+		default:
+		zone4.innerHTML = 'ALT Input';
+	}
+	if (json.mute[3] == 1) {
+		zone4.innerHTML = zone4.innerHTML + ' MUTE';
+	}
+	switch (json.input[4]) {
+		case 1:
+		zone5.innerHTML = 'ON';
+		break;
+		case 0:
+		zone5.innerHTML = 'OFF';
+		break;
+		default:
+		zone5.innerHTML = 'ALT Input';
+	}
+	if (json.mute[4] == 1) {
+		zone5.innerHTML = zone5.innerHTML + ' MUTE';
+	}
+	switch (json.input[5]) {
+		case 1:
+		zone6.innerHTML = 'ON';
+		break;
+		case 0:
+		zone6.innerHTML = 'OFF';
+		break;
+		default:
+		zone6.innerHTML = 'ALT Input';
+	}
+	if (json.mute[5] == 1) {
+		zone6.innerHTML = zone6.innerHTML + ' MUTE';
+	}
 };
- 
+
 function clickFun(channel,command){
 	if (connection.readyState == 1) {
 		connection.send(channel + ':' + command);
@@ -85,7 +162,7 @@ function clickFun(channel,command){
 	}
 	else {
 		console.log('Got Click, connection not ready');
-		statust.innerHTML = 'Got Click, connection not ready';
+		statust.innerHTML = 'Connection not ready';
 		start();
 	}
 };

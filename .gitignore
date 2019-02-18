@@ -1,4 +1,4 @@
-./nodejsserver/build/*
+nodejsserver/build/*
 *.b#*
 *.s#*
 *.l#*

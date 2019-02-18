@@ -5,7 +5,7 @@ const Delimiter = require('@serialport/parser-delimiter');
 const addon = require('./build/Release/send_zpad_command_napi');
 
 // Optional. You will see this name in eg. 'ps' or 'top' command
-process.title = 'node-bitbanging-server';
+process.title = 'elan-websocket';
 // Port where we'll run the websocket server
 var webSocketsServerPort = 1338;
 // websocket and http servers
@@ -16,8 +16,7 @@ var status = new Object();
 status.volume = [0,0,0,0,0,0];
 status.mute = [0,0,0,0,0,0];
 status.input = [0,0,0,0,0,0];
-// Old data so we only decode data if a change
-const old_data = Buffer.alloc(35);
+const old_data = Buffer.alloc(35); //Serial buffer to compair for changes
 var clients = [ ]; //Who's connected
 //  HTTP server
 var server = http.createServer(function(request, response) {
@@ -46,7 +45,7 @@ wsServer.on('request', function(request) {
 	for (var i = 0; i < clients.length; i++) {
 		console.log(clients[i].remoteAddress)
 	}
-	connection.sendUTF(JSON.stringify(status));
+	connection.sendUTF(JSON.stringify(status)); //Send the current status to new clients
 	connection.on('message', function(message) {
 		if (message.type === 'utf8') {
 			var commnds = message.utf8Data.split(":");
@@ -73,21 +72,41 @@ const port = new SerialPort('/dev/ttyAMA0', {
 
 const parser = port.pipe(new Delimiter({delimiter: new Buffer('E00081','hex') }));
 
+function extractData(sdata) {
+  var cstatus = new Object();
+  cstatus.volume = [0,0,0,0,0,0];
+  cstatus.mute = [0,0,0,0,0,0];
+  cstatus.input = [0,0,0,0,0,0];
+  for (var i = 0; i < 6; i++) {
+    cstatus.volume[i] = 48 - sdata[i*6+2] & 0b00111111;
+    cstatus.mute[i] = (sdata[i*6] & 0b00010000) >>> 4;
+    cstatus.input[i] = sdata[i*6] & 0b00000111;
+  }
+  return cstatus;
+}
+
+function diffData(data1,data2) {
+  var is_diff = false;
+  for (var i = 0; i < 6; i++) {
+    is_diff = is_diff || (data1.volume[i] !== data2.volume[i]);
+    is_diff = is_diff || (data1.mute[i] !== data2.mute[i]);
+    is_diff = is_diff || (data1.input[i] !== data2.input[i]);
+  }
+  return is_diff;
+}
+
 function onDiffData(sdata) {
-	if (old_data.compare(sdata) != 0) {
-		var i;
-		for (i = 0; i < 6; i++) {
-			status.volume[i] = 48 - sdata[i*6+2] & 0b00111111;
-			status.mute[i] = (sdata[i*6] & 0b00010000) >>> 4;
-			status.input[i] = sdata[i*6] & 0b00000111;
-		}
-		console.log(status);
-		var json = JSON.stringify(status);
-		for (var i=0; i < clients.length; i++) {
-			clients[i].sendUTF(json);
-        }
-		sdata.copy(old_data);
-	}
+  if (old_data.compare(sdata) != 0) { //If the serial data changes (doesn't mean status has changed)
+    var new_data = extractData(sdata); //Get the new status
+    if (diffData(new_data,status)) { //If new status is different
+      status = new_data; //Store new status
+      var json = JSON.stringify(status); // encode new status
+      for (var i=0; i < clients.length; i++) { //Send the status to clients
+        clients[i].sendUTF(json);
+      }
+    }
+    sdata.copy(old_data); // Save the serial data for compairson
+  }
 }
 
 parser.on('data', function(data) {onDiffData(data);});
