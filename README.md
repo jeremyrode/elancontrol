@@ -23,12 +23,16 @@
 - [x] Interface Node.js to bit banging C software via N-API
 - [x] Node.js server via Websockets
 - [x] Webpage GUI with Websockets interface to the Node.js backend
-- [ ] Reverse Engineer RS-485 based Status Protocol to display current state
+- [x] Reverse Engineer RS-485 based Status Protocol to display current state
 
 ## Current Status
 Full command sending functionality achieved:
 
-HTML Frontend /JavaScript -> Via Websocket -> Node.js Sever -> Via N-API -> C Bitbang GPIO -> Custom Level Shifter pcb
+HTML Frontend /JavaScript ->  Websocket -> Node.js Sever -> Via N-API -> C Bitbang GPIO -> Custom Level Shifter pcb
+
+Status packet and reporting functionality achieved:
+
+ RS-485 -> SerialPort (node.js) -> Delimiter Parser (node.js) -> Websocket -> HTML Frontend /JavaScript
 
 ## General Info
 I have a Elan S6 in my house and I love it, if only I could control it via my phone!  It shouldn't be that hard to get a Pi connected!
