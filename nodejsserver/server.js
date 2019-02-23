@@ -16,8 +16,11 @@ var status = new Object();
 status.volume = [0,0,0,0,0,0];
 status.mute = [0,0,0,0,0,0];
 status.input = [0,0,0,0,0,0];
+status.on = false;
+var last_update = 0;
 const old_data = Buffer.alloc(35); //Serial buffer to compair for changes
 var clients = [ ]; //Who's connected
+var onStatusCheck; //Interval on check
 //  HTTP server
 var server = http.createServer(function(request, response) {
     console.log((new Date()) + ' Received request for ' + request.url);
@@ -57,7 +60,7 @@ wsServer.on('request', function(request) {
 			console.log('Got non utf8 message');
 		}
 	});
-	// user disconnected
+	// user disconnected (this doesn't get all disconnects)
 	connection.on('close', function(reasonCode, description) {
 		console.log((new Date()) + " Peer " + connection.remoteAddress + " disconnected.");
 		// remove user from the list of connected clients
@@ -78,9 +81,9 @@ function extractData(sdata) {
   cstatus.mute = [0,0,0,0,0,0];
   cstatus.input = [0,0,0,0,0,0];
   for (var i = 0; i < 6; i++) {
-    cstatus.volume[i] = 48 - sdata[i*6+2] & 0b00111111;
-    cstatus.mute[i] = (sdata[i*6] & 0b00010000) >>> 4;
-    cstatus.input[i] = sdata[i*6] & 0b00000111;
+    cstatus.volume[i] = 48 - sdata[i*6+2] & 0b00111111; //Volume is sent as a 6-bit attenuation value in LSBs
+    cstatus.mute[i] = (sdata[i*6] & 0b00010000) >>> 4; // Mute is just a bit
+    cstatus.input[i] = sdata[i*6] & 0b00000111; // Mute is just a bit
   }
   return cstatus;
 }
@@ -96,17 +99,48 @@ function diffData(data1,data2) {
 }
 
 function onDiffData(sdata) {
+  last_update = Date.now(); //We are getting serial data, note the time
+  if (!status.on) {
+    status.on = true; //We're on now!
+    onStatusCheck = setInterval(isOn,2000); // Check to see if we're off every 2s
+  }
   if (old_data.compare(sdata) != 0) { //If the serial data changes (doesn't mean status has changed)
     var new_data = extractData(sdata); //Get the new status
     if (diffData(new_data,status)) { //If new status is different
       status = new_data; //Store new status
-      var json = JSON.stringify(status); // encode new status
-      for (var i=0; i < clients.length; i++) { //Send the status to clients
-        clients[i].sendUTF(json);
-      }
+      updateClients();
     }
     sdata.copy(old_data); // Save the serial data for compairson
   }
 }
 
+function updateClients() {
+  var json = JSON.stringify(status); // encode new status
+  for (var i=0; i < clients.length; i++) { //Send the status to clients
+    if (clients[i].connected) { //only if client is connected
+      clients[i].sendUTF(json);
+    }
+    else {
+      console.log((new Date()) + " Peer " + clients[i].remoteAddress + " culled");
+      clients.splice(i, 1); // Remove the client
+      console.log('Client List: ');
+      for (var i = 0; i < clients.length; i++) {
+        console.log(clients[i].remoteAddress);
+      }
+    }
+  }
+}
+
 parser.on('data', function(data) {onDiffData(data);});
+
+function isOn() {
+  if (Date.now() - last_update > 2000) { //No serial for 2s, we off
+    console.log('System is Off');
+    status.volume = [0,0,0,0,0,0];
+    status.mute = [0,0,0,0,0,0];
+    status.input = [0,0,0,0,0,0];
+    status.on = false;
+    updateClients();
+    clearInterval(onStatusCheck); //No need to check anymore we're off
+  }
+}

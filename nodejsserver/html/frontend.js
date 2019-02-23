@@ -68,7 +68,12 @@ function onMessage(message) {
 		statust.innerHTML = "Invalid Message";
 		return;
 	}
-	//console.log(json.volume[0]);
+	if (json.on) {
+		statust.innerHTML = "System On";
+	}
+	else {
+		statust.innerHTML = "System Off";
+	}
 	zone1s.value = json.volume[0];
 	zone2s.value = json.volume[1];
 	zone3s.value = json.volume[2];
