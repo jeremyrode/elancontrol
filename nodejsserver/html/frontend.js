@@ -55,9 +55,7 @@ function onOpen(evt) {
 };
 
 function onError(evt) {
-	content.html($('<p>', {
-		text: 'Sorry, but there\'s some problem with your connection or the server is down.'
-	}));
+	statust.innerHTML = "Connection Error";
 };
 
 function onMessage(message) {
@@ -68,7 +66,7 @@ function onMessage(message) {
 		statust.innerHTML = "Invalid Message";
 		return;
 	}
-	if (json.on) {
+	if (json.on == true) {
 		statust.innerHTML = "System On";
 	}
 	else {
@@ -163,11 +161,9 @@ function onMessage(message) {
 function clickFun(channel,command){
 	if (connection.readyState == 1) {
 		connection.send(channel + ':' + command);
-		statust.innerHTML = "Sent";
 	}
 	else {
 		console.log('Got Click, connection not ready');
 		statust.innerHTML = 'Connection not ready';
-		start();
 	}
 };
