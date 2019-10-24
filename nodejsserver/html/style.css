@@ -1,0 +1,194 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    color: #fff;
+    background: #2a292e;
+    margin: 0;
+}
+p{
+    text-align: center;
+}
+h2{
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 8px;
+    margin: 0;
+}
+.status {
+    width: 100%;
+    background: #121212;
+    text-align: center;
+    padding: 1px;
+    transition: background 300ms ease-in-out;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 10px;
+    margin-bottom: 30px;
+}
+.status.error {
+    background: #dc474e;
+}
+.status.success {
+    background: #44a45d;
+}
+.controller{
+    padding: 0 20px;
+}
+.zone{
+    position: relative;
+}
+.power-btn{
+    position: relative;
+    height: 60px;
+    width: 38px;
+    float: left;
+}
+.power {
+    text-shadow: 0px 1px 1px rgba(250,250,250,0.1);
+    font-size: 26px;
+    display: block;
+    position: relative;
+    text-decoration: none;
+    box-shadow: 0px 3px 0px 0px rgb(34,34,34),
+    0px 7px 10px 0px rgb(17,17,17),
+    inset 0px 1px 1px 0px rgba(250, 250, 250, .2),
+    inset 0px -12px 35px 0px rgba(0, 0, 0, .5);
+    width: 40px;
+    height: 40px;
+    border: 0;
+    color: rgb(37,37,37);
+    border-radius: 40px;
+    text-align: center;
+    line-height: 42px;
+    background-color: rgb(83,87,93);
+
+    transition: color 350ms ease, text-shadow 350ms;
+    -o-transition: color 350ms ease, text-shadow 350ms;
+    -moz-transition: color 350ms ease, text-shadow 350ms;
+    -webkit-transition: color 350ms ease, text-shadow 350ms;
+}
+.power:before {
+    content: "";
+    width: 46px;
+    height: 46px;
+    display: block;
+    z-index: -2;
+    position: absolute;
+    background-color: rgb(26,27,29);
+    left: -3px;
+    top: -2px;
+    border-radius: 40px;
+    box-shadow: 0px 1px 0px 0px rgba(250,250,250,0.1),
+    inset 0px 1px 2px rgba(0, 0, 0, 0.5);
+}
+.power:active {
+    box-shadow: 0px 0px 0px 0px rgb(34,34,34),
+    0px 3px 7px 0px rgb(17,17,17),
+    inset 0px 1px 1px 0px rgba(250, 250, 250, .2),
+    inset 0px -10px 35px 5px rgba(0, 0, 0, .5);
+    background-color: rgb(83,87,93);
+    top: 3px;
+}
+.power.on {
+    box-shadow: 0px 0px 0px 0px rgb(34,34,34),
+    0px 3px 7px 0px rgb(17,17,17),
+    inset 0px 1px 1px 0px rgba(250, 250, 250, .2),
+    inset 0px -10px 35px 5px rgba(0, 0, 0, .5);
+    background-color: rgb(83,87,93);
+    top: 3px;
+    color: #fff;
+    text-shadow: 0px 0px 3px rgb(250,250,250);
+}
+.power:active:before, .power.on:before {
+    top: -3px;
+    background-color: rgb(26,27,29);
+    box-shadow: 0px 1px 0px 0px rgba(250,250,250,0.1),
+    inset 0px 1px 2px rgba(0, 0, 0, 0.5);
+}
+/* Styling the Indicator light */
+.power + span {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: rgb(16,16,16);
+    box-shadow: inset 0px 1px 0px 0px rgba(90,90,90,0.5),
+    0px 0px 3px 2px rgba(14,14,14,0.5);
+    border-radius: 4px;
+    clear: both;
+    position: absolute;
+    bottom: 0;
+    left: 42%;
+    transition: background-color 350ms, box-shadow 700ms;
+    -o-transition: background-color 350ms, box-shadow 700ms;
+    -moz-transition: background-color 350ms, box-shadow 700ms;
+    -webkit-transition: background-color 350ms, box-shadow 700ms;
+}
+.power.on + span {
+    background-color: rgb(135,187,83);
+    box-shadow: inset 0px 1px 0px 0px rgba(250,250,250,0.5),
+    0px 0px 3px 2px rgba(135,187,83,0.5);
+}
+.power.off + span {
+    background-color: rgb(226,0,0);
+    box-shadow: inset 0px 1px 0px 0px rgba(250,250,250,0.5),
+    0px 0px 3px 2px rgba(226,0,0,0.5);
+}
+
+.volume-container{
+    margin: 0 45px 0 90px;
+}
+.vol-control {
+    width: 100%;
+    height: 60px;
+    position: relative;
+    top: 18px;
+}
+.vol-control i {
+    position: absolute;
+    margin-top: -7px;
+    color: #666;
+    font-size: 20px;
+}
+.vol-control i.fa-volume-down {
+    margin-left: -30px;
+}
+.vol-control i.fa-volume-up {
+    margin-right: -40px;
+    right: 0;
+}
+.vol-slider {
+    position: absolute;
+    margin: 0 auto;
+    height: 5px;
+    width: 100%;
+    background: #555;
+    border-radius: 15px;
+}
+.vol-slider .ui-slider-range {
+    height: 5px;
+    width: 300px;
+    position: absolute;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+.vol-slider .ui-slider-handle {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background: #FFF;
+    position: absolute;
+    margin-left: -8px;
+    margin-top: -8px;
+    cursor: pointer;
+    outline: none;
+}
+.vol-slider.ui-slider-disabled .ui-slider-range {
+    background: #555;
+}
+.vol-slider.ui-slider-disabled .ui-slider-handle {
+    background: #555;
+}
