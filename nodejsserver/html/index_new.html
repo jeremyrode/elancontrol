@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/090b0964e2.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+			integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+			crossorigin="anonymous"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+	<title>Elan Control</title>
+</head>
+
+<body>
+
+<div class="status">
+	<span class="statusspan" id="statusspan">Loading...</span>
+</div>
+
+<div class="controller">
+	<div id="zone1" class="zone">
+		<div class="name">
+			<h2>Master</h2>
+		</div>
+		<div class="power-btn">
+			<span id="zone1p" class="power"><i class="fas fa-power-off"></i></span>
+			<span class="indicator"></span>
+		</div>
+		<div class="volume-container">
+			<div class="vol-control">
+				<i class="fa fa-volume-down"></i>
+				<div id="zone1s" class="vol-slider" data-command="6"></div>
+				<i class="fa fa-volume-up"></i>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="controller">
+	<div id="zone2" class="zone">
+		<div class="name">
+			<div class="icon sound"></div>
+			<h2>Shower</h2>
+		</div>
+		<div class="power-btn">
+			<span id="zone2p" class="power"><i class="fas fa-power-off"></i></span>
+			<span class="indicator"></span>
+		</div>
+		<div class="volume-container">
+			<div class="vol-control">
+				<i class="fa fa-volume-down"></i>
+				<div id="zone2s" class="vol-slider" data-command="10"></div>
+				<i class="fa fa-volume-up"></i>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="controller">
+	<div id="zone3" class="zone">
+		<div class="name">
+			<div class="icon sound"></div>
+			<h2>Patio</h2>
+		</div>
+		<div class="power-btn">
+			<span id="zone3p" class="power"><i class="fas fa-power-off"></i></span>
+			<span class="indicator"></span>
+		</div>
+		<div class="volume-container">
+			<div class="vol-control">
+				<i class="fa fa-volume-down"></i>
+				<div id="zone3s" class="vol-slider" data-command="9"></div>
+				<i class="fa fa-volume-up"></i>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="controller">
+	<div id="zone4" class="zone">
+		<div class="name">
+			<div class="icon sound"></div>
+			<h2>Entry</h2>
+		</div>
+		<div class="power-btn">
+			<span id="zone4p" class="power"><i class="fas fa-power-off"></i></span>
+			<span class="indicator"></span>
+		</div>
+		<div class="volume-container">
+			<div class="vol-control">
+				<i class="fa fa-volume-down"></i>
+				<div id="zone4s" class="vol-slider" data-command="7"></div>
+				<i class="fa fa-volume-up"></i>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="controller">
+	<div id="zone5" class="zone">
+		<div class="name">
+			<div class="icon sound"></div>
+			<h2>Kris</h2>
+		</div>
+		<div class="power-btn">
+			<span id="zone5p" class="power"><i class="fas fa-power-off"></i></span>
+			<span class="indicator"></span>
+		</div>
+		<div class="volume-container">
+			<div class="vol-control">
+				<i class="fa fa-volume-down"></i>
+				<div id="zone5s" class="vol-slider" data-command="11"></div>
+				<i class="fa fa-volume-up"></i>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="controller">
+	<div id="zone6" class="zone">
+		<div class="name">
+			<div class="icon sound"></div>
+			<h2>Office</h2>
+		</div>
+		<div class="power-btn">
+			<span id="zone6p" class="power"><i class="fas fa-power-off"></i></span>
+			<span class="indicator"></span>
+		</div>
+		<div class="volume-container">
+			<div class="vol-control">
+				<i class="fa fa-volume-down"></i>
+				<div id="zone6s" class="vol-slider" data-command="8"></div>
+				<i class="fa fa-volume-up"></i>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="frontend_new.js"></script>
+
+</body>
+</html>
