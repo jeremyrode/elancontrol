@@ -1,5 +1,29 @@
-$('.vol-slider').slider({ disabled: true });
+$('.vol-slider').slider({
+	disabled: true,
+	min: 0,
+	max: 48,
+	value: 0,
+	range: "min",
+	slide: function(event, ui) {
+	command = $(this).data('command');
+	if (ui.value > lastVol[i]) {
+		console.log('volume up to '+ ui.value);
+		clickFun(4, command);
+	} else {
+		console.log('volume down to '+ ui.value);
+		clickFun(36, command);
+	}
+}
+});
+
 $('.power').attr( "disabled", true );
+
+$('.power').each(function(i){
+	$(this).attr( "disabled", true );;
+	$(this).on('click', function(){ //This is the power button click function
+		clickFun(0,6);
+	});
+});
 
 var connection;
 var checkStatus = 0;
@@ -36,7 +60,7 @@ function checkTimeout() {
 		console.log('Connection Timeout');
 		start();
 		console.log('Restarted');
-		statusDiv.removeClass('error');
+		statusDiv.removeClass('error'); //New
 	}
 }
 
@@ -66,36 +90,17 @@ function onMessage(message) {
 	}
 	if (json.on === true) {
 		statust.html('System On');
-		statusDiv.removeClass('error').addClass('success');
-
+		statusDiv.removeClass('error').addClass('success'); //new
 		var lastVol = [];
-		$('.vol-slider').each(function(i) {
+		$('.vol-slider').each(function(i) { //If we're on enable sliders show vol
 			$(this).slider({
-				min: 0,
-				max: 48,
-				value: json.volume[i],
-				range: "min",
 				disabled: false,
-				slide: function(event, ui) {
-					command = $(this).data('command');
-					if (ui.value > lastVol[i]) {
-						console.log('volume up to '+ ui.value);
-						clickFun(4, command);
-					} else {
-						console.log('volume down to '+ ui.value);
-						clickFun(36, command);
-					}
-					lastVol[i] = ui.value;
-				}
+				value: json.volume[i],
 			});
 		});
-
 		$('.power').each(function(i){
 			$(this).attr( "disabled", false );
 			(json.input[i] === 1) ? $(this).addClass('on') : $(this).addClass('off');
-			$(this).on('click', function(){
-				$(this).toggleClass('on').toggleClass('off');
-			});
 		});
 
 		// $('.mute').each(function(i){
