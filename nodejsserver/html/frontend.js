@@ -158,12 +158,32 @@ function onMessage(message) {
 	}
 };
 
-function clickFun(channel,command){
+function clickFun(command,channel){
 	if (connection.readyState == 1) {
-		connection.send(channel + ':' + command);
+		connection.send(command + ':' + channel);
 	}
 	else {
 		console.log('Got Click, connection not ready');
 		statust.innerHTML = 'Connection not ready';
 	}
 };
+
+//Handle User dragging the slider, send a 3 part command to server
+zone1s.onchange = function() {
+	connection.send(6 + ':' + 0 + ':' this.value );
+}
+zone2s.onchange = function() {
+	connection.send(7 + ':' + 0 + ':' this.value );
+}
+zone3s.onchange = function() {
+	connection.send(8 + ':' + 0 + ':' this.value );
+}
+zone4s.onchange = function() {
+	connection.send(11 + ':' + 0 + ':' this.value );
+}
+zone5s.onchange = function() {
+	connection.send(9 + ':' + 0 + ':' this.value );
+}
+zone6s.onchange = function() {
+	connection.send(10 + ':' + 0 + ':' this.value );
+}

@@ -52,13 +52,15 @@ wsServer.on('request', function(request) {
 	connection.on('message', function(message) {
 		if (message.type === 'utf8') {
 			var commnds = message.utf8Data.split(":"); //Yes, I should have used JSON
-			var command = parseInt(commnds[0]);
-			var channel = parseInt(commnds[1]);
-			addon.send_zpad_command_napi(channel,command); //Calls my C bitbanger
+      if commnds.length == 2 { //If only one colon, it's a straight command
+        var command = parseInt(commnds[0]);
+        var channel = parseInt(commnds[1]);
+        addon.send_zpad_command_napi(channel,command); //Calls my C bitbanger
+      }
 		}
-		else {
-			console.log('Got non utf8 message');
-		}
+
+		console.log('Got malformatted command from client');
+
 	});
 	// user disconnected (this doesn't get all disconnects)
 	connection.on('close', function(reasonCode, description) {
