@@ -17,6 +17,7 @@ status.volume = [0,0,0,0,0,0];
 status.mute = [0,0,0,0,0,0];
 status.input = [0,0,0,0,0,0];
 status.on = false;
+var slider_commands = [[],[],[],[],[],[]]; //Stores timeout events associated with a slider
 var last_update = 0; //Timestamp of last serial update
 const old_data = Buffer.alloc(35); //Serial buffer to compair for changes
 var clients = [ ]; //Who's connected
@@ -37,44 +38,83 @@ var wsServer = new webSocketServer({
 
 wsServer.on('request', function(request) {
 	console.log((new Date()) + ' Connection from origin ' + request.remoteAddress );
-	// accept connection - you should check 'request.origin' to
-	// make sure that client is connecting from your website
-	// (http://en.wikipedia.org/wiki/Same_origin_policy)
 	var connection = request.accept(null, request.origin);
 	// we need to know client index to remove them on 'close' event
 	var index = clients.push(connection) - 1;
-	/* console.log((new Date()) + ' Connection accepted.');
-	console.log('Client List: ');
-	for (var i = 0; i < clients.length; i++) {
-		console.log(clients[i].remoteAddress)
-	} */
 	connection.sendUTF(JSON.stringify(status)); //Send the current status to new clients
-	connection.on('message', function(message) {
-		if (message.type === 'utf8') {
-			var commnds = message.utf8Data.split(":"); //Yes, I should have used JSON
-      if commnds.length == 2 { //If only one colon, it's a straight command
-        var command = parseInt(commnds[0]);
-        var channel = parseInt(commnds[1]);
-        addon.send_zpad_command_napi(channel,command); //Calls my C bitbanger
-      }
-		}
-
-		console.log('Got malformatted command from client');
-
-	});
+	connection.on('message', function(message) {onClientMessage(message);});
 	// user disconnected (this doesn't get all disconnects)
 	connection.on('close', function(reasonCode, description) {
-		// console.log((new Date()) + " Peer " + connection.remoteAddress + " disconnected.");
 		// remove user from the list of connected clients
 		clients.splice(index, 1);
 	});
 });
+
+
+function onClientMessage(message) {
+  if (message.type === 'utf8') {
+    var commnds = message.utf8Data.split(":"); //Yes, I should have used JSON
+    if (commnds.length == 2) { // one colon, it's a straight command
+      var command = parseInt(commnds[0]);
+      var zone = parseInt(commnds[1]);
+      if (command < 0 || command > 63 || zone < 1 || zone > 6) {
+        console.log('malformatted command: ' + message.utf8Data);
+        return;
+      }
+      cancelPendingSliders(zone);
+      addon.send_zpad_command_napi(zonetoChannel(zone),command); //Calls my C bitbanger
+      return;
+    }
+    if (commnds.length == 3) { //Two colons, it's a slider
+      //console.log('Got slider command: ' + message.utf8Data);
+      var zone = parseInt(commnds[1]);
+      var desired_vol = parseInt(commnds[2]);
+      if (desired_vol < 0 || desired_vol > 48 || zone < 1 || zone > 6) {
+        console.log('malformatted command: ' + message.utf8Data);
+        return;
+      }
+      cancelPendingSliders(zone);
+      setDesiredVol(zone,desired_vol);
+      return;
+    }
+    console.log('Got short malformatted command from client: ' + message.utf8Data)
+  }
+  console.log('Got non-utf8 command from client');
+}
+
 
 const port = new SerialPort('/dev/ttyAMA0', {
 	baudRate: 19200
 })
 
 const parser = port.pipe(new Delimiter({delimiter: new Buffer('E00081','hex') }));
+
+function setDesiredVol(zone,desired_vol) {
+  const cdelay = 300;
+  if (desired_vol == status.volume[zone-1]) {
+    return;
+  }
+  console.log('Zone: ' + zone + ' Desired: ' + desired_vol + ' Current: ' + status.volume[zone-1]);
+  for(var i=0; i<Math.abs(desired_vol - status.volume[zone-1])-1; i++) {
+    if ((desired_vol - status.volume[zone-1]) > 0) { //Vol up
+      slider_commands[zone-1].push(setTimeout(function(){
+        addon.send_zpad_command_napi(zonetoChannel(zone),4); //Calls my C bitbanger
+      }, cdelay * i));
+    }
+    else { //Vol Down
+      slider_commands[zone-1].push(setTimeout(function(){
+        addon.send_zpad_command_napi(zonetoChannel(zone),36); //Calls my C bitbanger
+      }, cdelay * i));
+    }
+  }
+}
+
+function cancelPendingSliders(zone) {
+  for(var i=0; i<slider_commands[zone-1].length; i++) {
+    clearTimeout(slider_commands[zone-1][i]);
+  }
+  slider_commands[zone-1] = []; //clear the array out
+}
 
 function extractData(sdata) {
   var cstatus = new Object();
@@ -125,12 +165,7 @@ function updateClients() {
       clients[i].sendUTF(json);
     }
     else {
-      //console.log((new Date()) + " Peer " + clients[i].remoteAddress + " culled");
       clients.splice(i, 1); // Remove the client
-      /*console.log('Client List: ');
-      for (var i = 0; i < clients.length; i++) {
-        console.log(clients[i].remoteAddress);
-      } */
     }
   }
 }
@@ -147,4 +182,29 @@ function isOn() {
     updateClients();
     clearInterval(onStatusCheck); //No need to check anymore we're off
   }
+}
+
+function zonetoChannel(zone) {
+  switch (zone) {
+		case 1:
+		return 6;
+		break;
+		case 2:
+		return 7;
+		break;
+    case 3:
+    return 8;
+    break;
+    case 4:
+    return 11;
+    break;
+    case 5:
+    return 9;
+    break
+    case 6:
+    return 10;
+    break;
+		default:
+		return 0;
+	}
 }

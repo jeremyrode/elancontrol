@@ -31,15 +31,14 @@ else {
 
 function start() {
 	statust.innerHTML = "Connecting";
-	connection = new WebSocket('ws://192.168.1.157:1338');
+	connection = new WebSocket('ws://192.168.1.158:1338');
 	connection.onopen = function(evt) { onOpen(evt); };
 	connection.onerror = function(evt) { onError(evt); };
 	connection.onmessage = function(evt) { onMessage(evt); };
 	if (checkStatus == 0) {
-		checkStatus = setInterval(checkTimeout, 3000);
+		checkStatus = setInterval(checkTimeout, 10000);
 	}
 }
-
 
  function checkTimeout() {
     if (connection.readyState !== 1) {
@@ -52,6 +51,25 @@ function start() {
 
 function onOpen(evt) {
 	statust.innerHTML = "Connected";
+	//Handle User dragging the slider, send a 3 part command to server
+	zone1s.onchange = function() {
+		connection.send(0 + ':' + 1 + ':' + this.value );
+	};
+	zone2s.onchange = function() {
+		connection.send(0 + ':' + 2 + ':' + this.value );
+	};
+	zone3s.onchange = function() {
+		connection.send(0 + ':' + 3 + ':' + this.value );
+	};
+	zone4s.onchange = function() {
+		connection.send(0 + ':' + 4 + ':' + this.value );
+	};
+	zone5s.onchange = function() {
+		connection.send(0 + ':' + 5 + ':' + this.value );
+	};
+	zone6s.onchange = function() {
+		connection.send(0 + ':' + 6 + ':' + this.value );
+	};
 };
 
 function onError(evt) {
@@ -167,23 +185,3 @@ function clickFun(command,channel){
 		statust.innerHTML = 'Connection not ready';
 	}
 };
-
-//Handle User dragging the slider, send a 3 part command to server
-zone1s.onchange = function() {
-	connection.send(6 + ':' + 0 + ':' this.value );
-}
-zone2s.onchange = function() {
-	connection.send(7 + ':' + 0 + ':' this.value );
-}
-zone3s.onchange = function() {
-	connection.send(8 + ':' + 0 + ':' this.value );
-}
-zone4s.onchange = function() {
-	connection.send(11 + ':' + 0 + ':' this.value );
-}
-zone5s.onchange = function() {
-	connection.send(9 + ':' + 0 + ':' this.value );
-}
-zone6s.onchange = function() {
-	connection.send(10 + ':' + 0 + ':' this.value );
-}
