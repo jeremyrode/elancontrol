@@ -20,7 +20,7 @@ status.on = false;
 var slider_commands = [[],[],[],[],[],[]]; //Stores timeout events associated with a slider
 var last_update = 0; //Timestamp of last serial update
 const old_data = Buffer.alloc(35); //Serial buffer to compair for changes
-var clients = [ ]; //Who's connected
+var clients = []; //Who's connected
 var onStatusCheck; //Interval that checks if system is still on
 //  HTTP server
 var server = http.createServer(function(request, response) {
@@ -35,7 +35,7 @@ server.listen(webSocketsServerPort, function() {
 var wsServer = new webSocketServer({
 	httpServer: server
 });
-
+// Websocket request
 wsServer.on('request', function(request) {
 	console.log((new Date()) + ' Connection from origin ' + request.remoteAddress );
 	var connection = request.accept(null, request.origin);
@@ -49,8 +49,7 @@ wsServer.on('request', function(request) {
 		clients.splice(index, 1);
 	});
 });
-
-
+//Wesocket Message
 function onClientMessage(message) {
   if (message.type === 'utf8') {
     var commnds = message.utf8Data.split(":"); //Yes, I should have used JSON
@@ -65,7 +64,7 @@ function onClientMessage(message) {
       addon.send_zpad_command_napi(zonetoChannel(zone),command); //Calls my C bitbanger
       return;
     }
-    if (commnds.length == 3) { //Two colons, it's a slider
+    if (commnds.length == 3) { //Two colons, it's a slider command
       //console.log('Got slider command: ' + message.utf8Data);
       var zone = parseInt(commnds[1]);
       var desired_vol = parseInt(commnds[2]);
@@ -73,49 +72,49 @@ function onClientMessage(message) {
         console.log('malformatted command: ' + message.utf8Data);
         return;
       }
-      cancelPendingSliders(zone);
-      setDesiredVol(zone,desired_vol);
+      cancelPendingSliders(zone); //If we're already sliding, cancel
+      if (desired_vol > 30) { //Lets limit someone from flooring the vol via slider
+        desired_vol = 30;
+      }
+      //Set recustion limit to a bit more than we need to handle missing vol codes
+      var expected_steps = Math.abs(desired_vol - status.volume[zone-1]) + 1;
+      if (status.input[zone-1] != 1) { //if not on, turn on, but need delay
+        addon.send_zpad_command_napi(zonetoChannel(zone),0);
+        slider_commands[zone-1] = setTimeout(setDesiredVol,250,zone,desired_vol,expected_steps); //delay
+      }
+      else {
+          setDesiredVol(zone,desired_vol,expected_steps);
+      }
       return;
     }
     console.log('Got short malformatted command from client: ' + message.utf8Data)
   }
   console.log('Got non-utf8 command from client');
 }
-
-
-const port = new SerialPort('/dev/ttyAMA0', {
-	baudRate: 19200
-})
-
-const parser = port.pipe(new Delimiter({delimiter: new Buffer('E00081','hex') }));
-
-function setDesiredVol(zone,desired_vol) {
-  const cdelay = 300;
-  if (desired_vol == status.volume[zone-1]) {
+//Recusive funtion to get volume to a desired value based on slider change
+function setDesiredVol(zone,desired_vol,num_rec) {
+  if (desired_vol == status.volume[zone-1]) { //If we reach target, stop
     return;
   }
-  console.log('Zone: ' + zone + ' Desired: ' + desired_vol + ' Current: ' + status.volume[zone-1]);
-  for(var i=0; i<Math.abs(desired_vol - status.volume[zone-1])-1; i++) {
-    if ((desired_vol - status.volume[zone-1]) > 0) { //Vol up
-      slider_commands[zone-1].push(setTimeout(function(){
-        addon.send_zpad_command_napi(zonetoChannel(zone),4); //Calls my C bitbanger
-      }, cdelay * i));
-    }
-    else { //Vol Down
-      slider_commands[zone-1].push(setTimeout(function(){
-        addon.send_zpad_command_napi(zonetoChannel(zone),36); //Calls my C bitbanger
-      }, cdelay * i));
-    }
+  if (num_rec < 0) { //There are missing volume codes that cause inf recursion
+    console.log('We hit the recursion limit trying to get to ' + desired_vol);
+    return;
   }
+  //console.log('Zone: ' + zone + ' Desired: ' + desired_vol + ' Current: ' + status.volume[zone-1]);
+  if ((desired_vol - status.volume[zone-1]) > 0) {
+    addon.send_zpad_command_napi(zonetoChannel(zone),4); //Vol up
+  }
+  else { //Vol Down
+    addon.send_zpad_command_napi(zonetoChannel(zone),36); //Vol down
+  }
+  slider_commands[zone-1] = setTimeout(setDesiredVol,250,zone,desired_vol,num_rec-1); //call ourself in a bit
 }
-
+//Cancel any pending changes for a given channel
 function cancelPendingSliders(zone) {
-  for(var i=0; i<slider_commands[zone-1].length; i++) {
-    clearTimeout(slider_commands[zone-1][i]);
-  }
+  clearTimeout(slider_commands[zone-1]);
   slider_commands[zone-1] = []; //clear the array out
 }
-
+//Translate binary status to our status variables
 function extractData(sdata) {
   var cstatus = new Object();
   cstatus.volume = [0,0,0,0,0,0];
@@ -129,7 +128,7 @@ function extractData(sdata) {
   }
   return cstatus;
 }
-
+//compair data to see if anything we care about has changed
 function diffData(data1,data2) {
   var is_diff = false;
   for (var i = 0; i < 6; i++) {
@@ -139,7 +138,7 @@ function diffData(data1,data2) {
   }
   return is_diff;
 }
-
+//The serial data is broadcast regardless of status change, see if data is different
 function onDiffData(sdata) {
   last_update = Date.now(); //We are getting serial data, note the time
   if (status.on == false) { //If we have differing data, we turned on!
@@ -156,8 +155,8 @@ function onDiffData(sdata) {
   }
 }
 
-setInterval(updateClients,10000); // Force an update every 10s, will also help cull clients
-
+setInterval(updateClients,10000); // Force an update every 10s, will also help cull stale clients
+//Send the new status to the client list when things change
 function updateClients() {
   var json = JSON.stringify(status); // encode new status
   for (var i=0; i < clients.length; i++) { //Send the status to clients
@@ -165,13 +164,11 @@ function updateClients() {
       clients[i].sendUTF(json);
     }
     else {
-      clients.splice(i, 1); // Remove the client
+      clients.splice(i, 1); // Remove the client if not connected
     }
   }
 }
-
-parser.on('data', function(data) {onDiffData(data);});
-
+//When the system is off, we get no serial data
 function isOn() {
   if (Date.now() - last_update > 2000) { //If no serial data for 2s, we off
     //console.log('System is Off');
@@ -183,7 +180,13 @@ function isOn() {
     clearInterval(onStatusCheck); //No need to check anymore we're off
   }
 }
-
+//Monitor the serial port for system status
+const port = new SerialPort('/dev/ttyAMA0', {
+	baudRate: 19200
+})
+const parser = port.pipe(new Delimiter({delimiter: new Buffer('E00081','hex') }));
+parser.on('data', function(data) {onDiffData(data);});
+//translate from zone to RasberryPi GPIO channel
 function zonetoChannel(zone) {
   switch (zone) {
 		case 1:
