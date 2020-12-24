@@ -31,7 +31,7 @@ else {
 
 function start() {
 	statust.innerHTML = "Connecting";
-	connection = new WebSocket('ws://192.168.1.158:1338');
+	connection = new WebSocket('ws://192.168.86.2:1338');
 	connection.onopen = function(evt) { onOpen(evt); };
 	connection.onerror = function(evt) { onError(evt); };
 	connection.onmessage = function(evt) { onMessage(evt); };
