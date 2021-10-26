@@ -9,5 +9,9 @@
   },
   "author": "",
   "license": "ISC",
-  "gypfile": true
+  "gypfile": true,
+  "dependencies": {
+    "serialport": "^9.2.0",
+    "websocket": "^1.0.34"
+  }
 }
