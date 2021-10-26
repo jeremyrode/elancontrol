@@ -49,7 +49,7 @@ Decoding of the Key Commands (Preamble Omitted):
 
 | Command  | Code | Bin | Dec |
 | :------: |:----:|:---:|:---:|
-| Off | SSSSSS | 000000 | 0 |
+| Power | SSSSSS | 000000 | 0 |
 | Mute | SSSSLS | 000010 | 2 |
 | VolUp | SSSLSS | 000100 | 4 |
 | VolDown | LSSLSS | 100100 | 36 |
