@@ -1,46 +1,53 @@
 "use strict";
+const fs = require('fs');
 const SerialPort = require('serialport');
 const Delimiter = require('@serialport/parser-delimiter');
 // We need the C bitbanger function via N-API
-const addon = require('./build/Release/send_zpad_command_napi');
+const elan = require('./build/Release/send_zpad_command_napi');
 
 // Optional. You will see this name in eg. 'ps' or 'top' command
 process.title = 'elan-websocket';
 // Port where we'll run the websocket server
-var webSocketsServerPort = 1338;
+const webSocketsServerPort = 1338;
+const LOG_FILE = '/home/pi/ElanControlLog.txt';
+const ELAN_POWER = 0;
+const ELAN_VOLUP = 4;
+const ELAN_VOLDOWN = 36;
 // websocket and http servers
-var webSocketServer = require('websocket').server;
-var http = require('http');
+const webSocketServer = require('websocket').server;
+const http = require('http');
+const logfile = fs.createWriteStream(LOG_FILE, {flags:'a'});
 // Status Object
-var status = new Object();
-status.volume = [0,0,0,0,0,0];
-status.mute = [0,0,0,0,0,0];
-status.input = [0,0,0,0,0,0];
-status.on = false;
-var slider_commands = [[],[],[],[],[],[]]; //Stores timeout events associated with a slider
-var last_update = 0; //Timestamp of last serial update
+let status = {
+  volume: [0,0,0,0,0,0],
+  mute: [0,0,0,0,0,0],
+  input: [0,0,0,0,0,0],
+  on: false
+};
+const slider_commands = [[],[],[],[],[],[]]; //Stores timeout events associated with a slider
+let last_update = 0; //Timestamp of last serial update
 const old_data = Buffer.alloc(35); //Serial buffer to compair for changes
-var clients = []; //Who's connected
-var onStatusCheck; //Interval that checks if system is still on
+const clients = []; //Who's connected
+let onStatusCheck; //Interval that checks if system is still on
 //  HTTP server
-var server = http.createServer(function(request, response) {
-    console.log((new Date()) + ' Received request for ' + request.url);
+const server = http.createServer(function(request, response) {
+    combinedLog('Received request for ' + request.url);
     response.writeHead(404);
     response.end();
 });
 server.listen(webSocketsServerPort, function() {
-	console.log((new Date()) + " Server is listening on port " + webSocketsServerPort);
+	combinedLog("Server is listening on port " + webSocketsServerPort);
 });
 // WebSocket server
-var wsServer = new webSocketServer({
+const wsServer = new webSocketServer({
 	httpServer: server
 });
 // Websocket request
 wsServer.on('request', function(request) {
-	console.log((new Date()) + ' Connection from origin ' + request.remoteAddress );
-	var connection = request.accept(null, request.origin);
+	// combinedLog('Connection from origin ' + request.remoteAddress);
+	const connection = request.accept(null, request.origin);
 	// we need to know client index to remove them on 'close' event
-	var index = clients.push(connection) - 1;
+	let index = clients.push(connection) - 1;
 	connection.sendUTF(JSON.stringify(status)); //Send the current status to new clients
 	connection.on('message', function(message) {onClientMessage(message);});
 	// user disconnected (this doesn't get all disconnects)
@@ -52,24 +59,24 @@ wsServer.on('request', function(request) {
 //Wesocket Message
 function onClientMessage(message) {
   if (message.type === 'utf8') {
-    var commnds = message.utf8Data.split(":"); //Yes, I should have used JSON
+    const commnds = message.utf8Data.split(":"); //Yes, I should have used JSON
     if (commnds.length == 2) { // one colon, it's a straight command
-      var command = parseInt(commnds[0]);
-      var zone = parseInt(commnds[1]);
+      const command = parseInt(commnds[0]);
+      const zone = parseInt(commnds[1]);
       if (command < 0 || command > 63 || zone < 1 || zone > 6) {
-        console.log('malformatted command: ' + message.utf8Data);
+        combinedLog('malformatted command: ' + message.utf8Data);
         return;
       }
       cancelPendingSliders(zone);
-      addon.send_zpad_command_napi(zonetoChannel(zone),command); //Calls my C bitbanger
+      elan.send_zpad_command_napi(zonetoChannel(zone),command); //Calls my C bitbanger
       return;
     }
     if (commnds.length == 3) { //Two colons, it's a slider command
       //console.log('Got slider command: ' + message.utf8Data);
-      var zone = parseInt(commnds[1]);
-      var desired_vol = parseInt(commnds[2]);
+      const zone = parseInt(commnds[1]);
+      let desired_vol = parseInt(commnds[2]);
       if (desired_vol < 0 || desired_vol > 48 || zone < 1 || zone > 6) {
-        console.log('malformatted command: ' + message.utf8Data);
+        combinedLog('malformatted command: ' + message.utf8Data);
         return;
       }
       cancelPendingSliders(zone); //If we're already sliding, cancel
@@ -77,9 +84,9 @@ function onClientMessage(message) {
         desired_vol = 30;
       }
       //Set recustion limit to a bit more than we need to handle missing vol codes
-      var expected_steps = Math.abs(desired_vol - status.volume[zone-1]) + 1;
+      const expected_steps = Math.abs(desired_vol - status.volume[zone-1]) + 1;
       if (status.input[zone-1] != 1) { //if not on, turn on, but need delay
-        addon.send_zpad_command_napi(zonetoChannel(zone),0);
+        elan.send_zpad_command_napi(zonetoChannel(zone),ELAN_POWER);
         slider_commands[zone-1] = setTimeout(setDesiredVol,250,zone,desired_vol,expected_steps); //delay
       }
       else {
@@ -87,9 +94,9 @@ function onClientMessage(message) {
       }
       return;
     }
-    console.log('Got short malformatted command from client: ' + message.utf8Data)
+    combinedLog('Got short malformatted command from client: ' + message.utf8Data)
   }
-  console.log('Got non-utf8 command from client');
+  combinedLog('Got non-utf8 command from client');
 }
 //Recusive funtion to get volume to a desired value based on slider change
 function setDesiredVol(zone,desired_vol,num_rec) {
@@ -97,15 +104,15 @@ function setDesiredVol(zone,desired_vol,num_rec) {
     return;
   }
   if (num_rec < 0) { //There are missing volume codes that cause inf recursion
-    console.log('We hit the recursion limit trying to get to ' + desired_vol);
+    combinedLog('We hit the recursion limit trying to get to ' + desired_vol);
     return;
   }
   //console.log('Zone: ' + zone + ' Desired: ' + desired_vol + ' Current: ' + status.volume[zone-1]);
   if ((desired_vol - status.volume[zone-1]) > 0) {
-    addon.send_zpad_command_napi(zonetoChannel(zone),4); //Vol up
+    elan.send_zpad_command_napi(zonetoChannel(zone),ELAN_VOLUP); //Vol up
   }
   else { //Vol Down
-    addon.send_zpad_command_napi(zonetoChannel(zone),36); //Vol down
+    elan.send_zpad_command_napi(zonetoChannel(zone),ELAN_VOLDOWN); //Vol down
   }
   slider_commands[zone-1] = setTimeout(setDesiredVol,250,zone,desired_vol,num_rec-1); //call ourself in a bit
 }
@@ -116,12 +123,13 @@ function cancelPendingSliders(zone) {
 }
 //Translate binary status to our status variables
 function extractData(sdata) {
-  var cstatus = new Object();
-  cstatus.volume = [0,0,0,0,0,0];
-  cstatus.mute = [0,0,0,0,0,0];
-  cstatus.input = [0,0,0,0,0,0];
-  cstatus.on = true; //We're on if we're extrcting data
-  for (var i = 0; i < 6; i++) {
+  const cstatus = {
+    volume: [0,0,0,0,0,0],
+    mute: [0,0,0,0,0,0],
+    input: [0,0,0,0,0,0],
+    on: true
+  };
+  for (let i = 0; i < 6; i++) {
     cstatus.volume[i] = 48 - sdata[i*6+2] & 0b00111111; //Volume is sent as a 6-bit attenuation value in LSBs
     cstatus.mute[i] = (sdata[i*6] & 0b00010000) >>> 4; // Mute is just a bit
     cstatus.input[i] = sdata[i*6] & 0b00000111; // Status is 3 LSBs
@@ -130,8 +138,8 @@ function extractData(sdata) {
 }
 //compair data to see if anything we care about has changed
 function diffData(data1,data2) {
-  var is_diff = false;
-  for (var i = 0; i < 6; i++) {
+  let is_diff = false;
+  for (let i = 0; i < 6; i++) {
     is_diff = is_diff || (data1.volume[i] !== data2.volume[i]);
     is_diff = is_diff || (data1.mute[i] !== data2.mute[i]);
     is_diff = is_diff || (data1.input[i] !== data2.input[i]);
@@ -158,8 +166,8 @@ function onDiffData(sdata) {
 setInterval(updateClients,10000); // Force an update every 10s, will also help cull stale clients
 //Send the new status to the client list when things change
 function updateClients() {
-  var json = JSON.stringify(status); // encode new status
-  for (var i=0; i < clients.length; i++) { //Send the status to clients
+  const json = JSON.stringify(status); // encode new status
+  for (let i=0; i < clients.length; i++) { //Send the status to clients
     if (clients[i].connected) { //only if client is connected
       clients[i].sendUTF(json);
     }
@@ -210,4 +218,13 @@ function zonetoChannel(zone) {
 		default:
 		return 0;
 	}
+}
+
+// logging function
+function combinedLog(message) {
+  let curDate = new Date();
+  let dateStr = curDate.toString();
+  message = dateStr.slice(0,dateStr.length-33) + ' ' + message; //Prepend Time to message
+  console.log(message);
+  logfile.write(message + '\n')
 }
