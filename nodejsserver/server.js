@@ -80,17 +80,17 @@ function onClientMessage(message) {
         return;
       }
       cancelPendingSliders(zone); //If we're already sliding, cancel
-      if (desired_vol > 30) { //Lets limit someone from flooring the vol via slider
-        desired_vol = 30;
+      if (desired_vol > 33) { //Lets limit someone from flooring the vol via slider
+        desired_vol = 33;
       }
       //Set recustion limit to a bit more than we need to handle missing vol codes
-      const expected_steps = Math.abs(desired_vol - status.volume[zone-1]) + 1;
+      const expected_steps = Math.abs(desired_vol - status.volume[zone-1]) + 6; //Increased for debugging
       if (status.input[zone-1] != 1) { //if not on, turn on, but need delay
         elan.send_zpad_command_napi(zonetoChannel(zone),ELAN_POWER);
-        slider_commands[zone-1] = setTimeout(setDesiredVol,250,zone,desired_vol,expected_steps); //delay
+        slider_commands[zone-1] = setTimeout(setDesiredVol,250,zone,removeMissingCodes(desired_vol),expected_steps); //delay
       }
       else {
-          setDesiredVol(zone,desired_vol,expected_steps);
+          setDesiredVol(zone,removeMissingCodes(desired_vol),expected_steps);
       }
       return;
     }
@@ -198,25 +198,81 @@ parser.on('data', function(data) {onDiffData(data);});
 function zonetoChannel(zone) {
   switch (zone) {
 		case 1:
-		return 6;
+		  return 6;
 		break;
 		case 2:
-		return 7;
+		  return 7;
 		break;
     case 3:
-    return 8;
+      return 8;
     break;
     case 4:
-    return 11;
+      return 11;
     break;
     case 5:
-    return 9;
+      return 9;
     break
     case 6:
-    return 10;
+      return 10;
     break;
 		default:
-		return 0;
+		  return 0;
+	}
+}
+
+//Remove the annoying volume missing codes from slider targers
+function removeMissingCodes(vol) {
+  switch (vol) {
+    case 4:
+      return 3;
+    break;
+    case 7:
+      return 6;
+    break;
+    case 10:
+      return 9;
+    break;
+    case 13:
+      return 12;
+    break;
+    case 16:
+      return 15;
+    break;
+    case 16:
+      return 15;
+    break;
+    case 19:
+      return 18;
+    break;
+    case 22:
+      return 21;
+    break;
+    case 25:
+      return 24;
+    break;
+    case 28:
+      return 27;
+    break;
+    case 31:
+      return 30;
+    break;
+    case 34:
+      return 33;
+    break;
+    case 38:
+      return 37;
+    break;
+    case 41:
+      return 40;
+    break;
+    case 44:
+      return 43;
+    break;
+    case 47:
+      return 46;
+    break;
+		default:
+		  return vol;
 	}
 }
 
