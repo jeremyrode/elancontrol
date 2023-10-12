@@ -1,6 +1,8 @@
 # elancontrol
 ### Code to control an Elan System6 Integrated Multi-Zone Controller from RaspberryPi
 
+## FYI, I'm currently [porting the ZPad command generation to a Raspberry Pi Pico](https://github.com/jeremyrode/pico_elancontrol)
+
 ## What's in this repository:
 - commandlinetools: low level software to test the bit-banging Software
 - docs: notes / pictures / MATLAB data
